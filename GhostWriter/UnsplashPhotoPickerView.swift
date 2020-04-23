@@ -17,9 +17,11 @@ struct UnsplashPhotoPickerView: UIViewControllerRepresentable {
 	let callback: (String?) -> Void
 
 	func makeUIViewController(context: UIViewControllerRepresentableContext<UnsplashPhotoPickerView>) -> UnsplashPhotoPicker {
-		let credentialFile = Bundle.main.path(forResource: "Unsplash", ofType: "plist")
-		let credentials = NSDictionary(contentsOfFile: credentialFile!)
-		let picker = UnsplashPhotoPicker(configuration: .init(accessKey: credentials["ACCESS_KEY"]!, secretKey: credentials["SECRET_KEY"]))
+		guard let credentialFile = Bundle.main.path(forResource: "Unsplash", ofType: "plist"), let credentials = NSDictionary(contentsOfFile: credentialFile),
+			let accessKey = credentials["ACCESS_KEY"] as? String, let secretKey = credentials["SECRET_KEY"] as? String else {
+			fatalError("Failed to load Unsplash credentials, please make sure they exist correctly in Unsplash.plist")
+		}
+		let picker = UnsplashPhotoPicker(configuration: .init(accessKey: accessKey, secretKey: secretKey))
 		picker.photoPickerDelegate = context.coordinator
 		return picker
 	}
