@@ -1,0 +1,6 @@
+[submodule "unsplash-photopicker-ios"]
+	path = unsplash-photopicker-ios
+	url = https://github.com/unsplash/unsplash-photopicker-ios.git
+[submodule "Down"]
+	path = Down
+	url = https://github.com/iwasrobbed/Down
