@@ -57,7 +57,7 @@ fileprivate struct ImagePicker: ViewModifier {
 
 extension View {
 	func imagePicker(isPresented: Binding<Bool>, imageURL: Binding<String?>, title: String = "Select an image") -> some View {
-		self.modifier(ImagePicker(isPresented: isPresented, title: title) { imageURL.wrappedValue = $0 })
+		self.modifier(ImagePicker(isPresented: isPresented, title: title, callback: { imageURL.wrappedValue = $0 }))
 	}
 
 	func imagePicker(isPresented: Binding<Bool>, title: String = "Select an image", callback: @escaping (String?) -> Void) -> some View {
