@@ -553,6 +553,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GhostWriter/Ghost Publisher.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"GhostWriter/Preview Content\"";
 				DEVELOPMENT_TEAM = 4ZEY85X5FX;
@@ -588,6 +589,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GhostWriter/Ghost Publisher.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"GhostWriter/Preview Content\"";
 				DEVELOPMENT_TEAM = 4ZEY85X5FX;
 				ENABLE_PREVIEWS = YES;

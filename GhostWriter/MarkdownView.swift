@@ -55,5 +55,17 @@ struct MarkdownView: UIViewRepresentable {
 		   print(hexString)
 		   return hexString
 		}
+
+		func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+			if navigationAction.navigationType == .linkActivated {
+				if let url = navigationAction.request.url {
+					if UIApplication.shared.canOpenURL(url) {
+						UIApplication.shared.open(url)
+					}
+					decisionHandler(.cancel)
+				}
+			}
+			decisionHandler(.cancel)
+		}
 	}
 }
