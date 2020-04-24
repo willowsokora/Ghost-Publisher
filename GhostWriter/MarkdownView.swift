@@ -63,6 +63,7 @@ struct MarkdownView: UIViewRepresentable {
 						UIApplication.shared.open(url)
 					}
 					decisionHandler(.cancel)
+					return
 				}
 			}
 			decisionHandler(.allow)
