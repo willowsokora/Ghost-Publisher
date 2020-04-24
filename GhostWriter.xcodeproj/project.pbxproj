@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		163456E824525FF3002430B9 /* Unsplash.plist in Resources */ = {isa = PBXBuildFile; fileRef = 163456E724525FF3002430B9 /* Unsplash.plist */; };
 		1662BB502450084200293699 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1662BB4F2450084200293699 /* SceneDelegate.swift */; };
+		169ED707245346C500E713E8 /* Down.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 169ED702245346BE00E713E8 /* Down.framework */; };
+		169ED708245346C500E713E8 /* Down.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 169ED702245346BE00E713E8 /* Down.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		16A09687244FC61600E96B73 /* RefreshableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A09686244FC61600E96B73 /* RefreshableList.swift */; };
 		16A0968C244FD10800E96B73 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 16A0968B244FD10800E96B73 /* Introspect */; };
 		16C0B67E2450A37300C7D832 /* MobileDocEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C0B67D2450A37300C7D832 /* MobileDocEditor.swift */; };
@@ -20,8 +22,6 @@
 		16C0B690245201FC00C7D832 /* ActionSheetStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C0B68A245201FC00C7D832 /* ActionSheetStyle.swift */; };
 		16C0B691245201FC00C7D832 /* View+IfDeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C0B68B245201FC00C7D832 /* View+IfDeviceType.swift */; };
 		16C0B6932452090D00C7D832 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C0B6922452090D00C7D832 /* ImagePickerView.swift */; };
-		16C0B6AC2452400100C7D832 /* Down.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C0B69B24523FDF00C7D832 /* Down.framework */; platformFilter = ios; };
-		16C0B6AD2452400100C7D832 /* Down.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 16C0B69B24523FDF00C7D832 /* Down.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		16C0B6AE2452400300C7D832 /* UnsplashPhotoPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C0B6AB24523FFA00C7D832 /* UnsplashPhotoPicker.framework */; };
 		16C0B6AF2452400300C7D832 /* UnsplashPhotoPicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 16C0B6AB24523FFA00C7D832 /* UnsplashPhotoPicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		16C0B6B12452401700C7D832 /* UnsplashPhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C0B6B02452401700C7D832 /* UnsplashPhotoPickerView.swift */; };
@@ -52,23 +52,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		16C0B69A24523FDF00C7D832 /* PBXContainerItemProxy */ = {
+		169ED701245346BE00E713E8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 16C0B69424523FDF00C7D832 /* Down.xcodeproj */;
+			containerPortal = 169ED6FB245346BE00E713E8 /* Down.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8A569F401E6B3E50008BE2AC;
 			remoteInfo = Down;
 		};
-		16C0B69C24523FDF00C7D832 /* PBXContainerItemProxy */ = {
+		169ED703245346BE00E713E8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 16C0B69424523FDF00C7D832 /* Down.xcodeproj */;
+			containerPortal = 169ED6FB245346BE00E713E8 /* Down.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8AFAEAFB1E6E32E900E09B68;
 			remoteInfo = DownTests;
 		};
-		16C0B69E24523FDF00C7D832 /* PBXContainerItemProxy */ = {
+		169ED705245346BE00E713E8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 16C0B69424523FDF00C7D832 /* Down.xcodeproj */;
+			containerPortal = 169ED6FB245346BE00E713E8 /* Down.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = EEBA153A2344845500B54ECB;
 			remoteInfo = DownSnapshotTests;
@@ -89,7 +89,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				16C0B6AD2452400100C7D832 /* Down.framework in Embed Frameworks */,
+				169ED708245346C500E713E8 /* Down.framework in Embed Frameworks */,
 				16C0B6AF2452400300C7D832 /* UnsplashPhotoPicker.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -100,6 +100,7 @@
 /* Begin PBXFileReference section */
 		163456E724525FF3002430B9 /* Unsplash.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Unsplash.plist; sourceTree = "<group>"; };
 		1662BB4F2450084200293699 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		169ED6FB245346BE00E713E8 /* Down.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Down.xcodeproj; path = Down/Down.xcodeproj; sourceTree = "<group>"; };
 		16A09686244FC61600E96B73 /* RefreshableList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableList.swift; sourceTree = "<group>"; };
 		16C0B67D2450A37300C7D832 /* MobileDocEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileDocEditor.swift; sourceTree = "<group>"; };
 		16C0B686245201FC00C7D832 /* ActionOverViewModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionOverViewModifier.swift; sourceTree = "<group>"; };
@@ -109,7 +110,6 @@
 		16C0B68A245201FC00C7D832 /* ActionSheetStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetStyle.swift; sourceTree = "<group>"; };
 		16C0B68B245201FC00C7D832 /* View+IfDeviceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+IfDeviceType.swift"; sourceTree = "<group>"; };
 		16C0B6922452090D00C7D832 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
-		16C0B69424523FDF00C7D832 /* Down.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Down.xcodeproj; path = Down/Down.xcodeproj; sourceTree = "<group>"; };
 		16C0B6A624523FFA00C7D832 /* UnsplashPhotoPicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UnsplashPhotoPicker.xcodeproj; path = "unsplash-photopicker-ios/UnsplashPhotoPicker/UnsplashPhotoPicker.xcodeproj"; sourceTree = "<group>"; };
 		16C0B6B02452401700C7D832 /* UnsplashPhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPhotoPickerView.swift; sourceTree = "<group>"; };
 		16C0B6B52452516700C7D832 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
@@ -145,9 +145,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				169ED707245346C500E713E8 /* Down.framework in Frameworks */,
 				16C0B6B42452458100C7D832 /* Alamofire in Frameworks */,
 				16C0B6842450B04500C7D832 /* SwiftUIX in Frameworks */,
-				16C0B6AC2452400100C7D832 /* Down.framework in Frameworks */,
 				16A0968C244FD10800E96B73 /* Introspect in Frameworks */,
 				16C0B6AE2452400300C7D832 /* UnsplashPhotoPicker.framework in Frameworks */,
 			);
@@ -163,6 +163,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		169ED6FC245346BE00E713E8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				169ED702245346BE00E713E8 /* Down.framework */,
+				169ED704245346BE00E713E8 /* DownTests.xctest */,
+				169ED706245346BE00E713E8 /* DownSnapshotTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		16C0B685245201FC00C7D832 /* ActionOver */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,16 +186,6 @@
 			path = ActionOver;
 			sourceTree = "<group>";
 		};
-		16C0B69524523FDF00C7D832 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				16C0B69B24523FDF00C7D832 /* Down.framework */,
-				16C0B69D24523FDF00C7D832 /* DownTests.xctest */,
-				16C0B69F24523FDF00C7D832 /* DownSnapshotTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		16C0B6A724523FFA00C7D832 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,8 +197,8 @@
 		16D86269244CF53B0022D6BB = {
 			isa = PBXGroup;
 			children = (
+				169ED6FB245346BE00E713E8 /* Down.xcodeproj */,
 				16C0B6A624523FFA00C7D832 /* UnsplashPhotoPicker.xcodeproj */,
-				16C0B69424523FDF00C7D832 /* Down.xcodeproj */,
 				16D86274244CF53B0022D6BB /* GhostWriter */,
 				16D86273244CF53B0022D6BB /* Products */,
 				164BD1FE244FD78000249A95 /* Frameworks */,
@@ -319,8 +319,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 16C0B69524523FDF00C7D832 /* Products */;
-					ProjectRef = 16C0B69424523FDF00C7D832 /* Down.xcodeproj */;
+					ProductGroup = 169ED6FC245346BE00E713E8 /* Products */;
+					ProjectRef = 169ED6FB245346BE00E713E8 /* Down.xcodeproj */;
 				},
 				{
 					ProductGroup = 16C0B6A724523FFA00C7D832 /* Products */;
@@ -335,25 +335,25 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		16C0B69B24523FDF00C7D832 /* Down.framework */ = {
+		169ED702245346BE00E713E8 /* Down.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Down.framework;
-			remoteRef = 16C0B69A24523FDF00C7D832 /* PBXContainerItemProxy */;
+			remoteRef = 169ED701245346BE00E713E8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		16C0B69D24523FDF00C7D832 /* DownTests.xctest */ = {
+		169ED704245346BE00E713E8 /* DownTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = DownTests.xctest;
-			remoteRef = 16C0B69C24523FDF00C7D832 /* PBXContainerItemProxy */;
+			remoteRef = 169ED703245346BE00E713E8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		16C0B69F24523FDF00C7D832 /* DownSnapshotTests.xctest */ = {
+		169ED706245346BE00E713E8 /* DownSnapshotTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = DownSnapshotTests.xctest;
-			remoteRef = 16C0B69E24523FDF00C7D832 /* PBXContainerItemProxy */;
+			remoteRef = 169ED705245346BE00E713E8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		16C0B6AB24523FFA00C7D832 /* UnsplashPhotoPicker.framework */ = {
@@ -569,7 +569,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = me.jacobsokora.ghostwriter;
 				PRODUCT_NAME = "Ghost Publisher";
 				SUPPORTS_MACCATALYST = NO;
@@ -598,7 +598,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = me.jacobsokora.ghostwriter;
 				PRODUCT_NAME = "Ghost Publisher";
 				SUPPORTS_MACCATALYST = NO;
