@@ -37,7 +37,7 @@ struct OptionsView: View {
 								Spacer()
 							}
 						} else {
-							AsyncImage(url: URL(string: self.post.featureImage!)!, placeholder: Text("Loading..."))
+							AsyncImage(url: URL(string: self.post.featureImage!.imageURL)!, placeholder: Text("Loading..."))
 							HStack {
 								Spacer()
 								Button(action: {

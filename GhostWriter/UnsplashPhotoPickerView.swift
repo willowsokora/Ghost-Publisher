@@ -14,7 +14,7 @@ struct UnsplashPhotoPickerView: UIViewControllerRepresentable {
 	typealias UIViewControllerType = UnsplashPhotoPicker
 
 	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-	let callback: (String?) -> Void
+	let callback: (ImageInfo) -> Void
 
 	func makeUIViewController(context: UIViewControllerRepresentableContext<UnsplashPhotoPickerView>) -> UnsplashPhotoPicker {
 		guard let credentialFile = Bundle.main.path(forResource: "Unsplash", ofType: "plist"), let credentials = NSDictionary(contentsOfFile: credentialFile),
@@ -41,8 +41,8 @@ struct UnsplashPhotoPickerView: UIViewControllerRepresentable {
 		}
 
 		func unsplashPhotoPicker(_ photoPicker: UnsplashPhotoPicker, didSelectPhotos photos: [UnsplashPhoto]) {
-			if let photo = photos.first {
-				parent.callback(photo.urls[.regular]?.absoluteString)
+			if let photo = photos.first, let imageURL = photo.urls[.regular]?.absoluteString {
+				parent.callback(ImageInfo(imageURL: imageURL, attribution: photo.user))
 				parent.presentationMode.wrappedValue.dismiss()
 			}
 		}

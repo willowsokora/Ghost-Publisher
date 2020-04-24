@@ -162,7 +162,7 @@ struct CreatePostPayload: Codable {
 
 	init(_ blogPost: BlogPost) {
 		self.posts = [
-			PostPayload(slug: blogPost.slug, title: blogPost.title, html: (try? Down(markdownString: blogPost.markdown).toHTML()) ?? "", feature_image: blogPost.featureImage, authors: blogPost.authors, excerpt: blogPost.excerpt, tags: blogPost.tags, status: blogPost.status, visibility: blogPost.visibility, featured: blogPost.featured, updated_at: blogPost.updatedAt, published_at: blogPost.publishedAt?.utcString)
+			PostPayload(slug: blogPost.slug, title: blogPost.title, html: (try? Down(markdownString: blogPost.markdown).toHTML()) ?? "", feature_image: blogPost.featureImage?.imageURL, authors: blogPost.authors, excerpt: blogPost.excerpt, tags: blogPost.tags, status: blogPost.status, visibility: blogPost.visibility, featured: blogPost.featured, updated_at: blogPost.updatedAt, published_at: blogPost.publishedAt?.utcString)
 		]
 	}
 

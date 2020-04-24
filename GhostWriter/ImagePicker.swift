@@ -8,6 +8,23 @@
 
 import SwiftUI
 import SwiftUIX
+import UnsplashPhotoPicker
+
+struct ImageInfo {
+	let imageURL: String
+	let attribution: UnsplashUser?
+
+	init(imageURL: String, attribution: UnsplashUser? = nil) {
+		self.imageURL = imageURL
+		self.attribution = attribution
+	}
+}
+
+extension UnsplashUser {
+	var markdownAttribution: String {
+		return "Photo by [\(name ?? "Anonymous")](https://unsplash.com/@\(username)?utm_source=ghost_publisher&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=ghost_publisher&utm_medium=referral)"
+	}
+}
 
 fileprivate struct ImagePicker: ViewModifier {
 
@@ -23,7 +40,7 @@ fileprivate struct ImagePicker: ViewModifier {
 
 	@Binding var isPresented: Bool
 	var title = "Select an image"
-	let callback: (String?) -> Void
+	let callback: (ImageInfo) -> Void
 	@State var pickerType: ImagePickerType? = nil
 
 	func body(content: Content) -> some View {
@@ -56,11 +73,11 @@ fileprivate struct ImagePicker: ViewModifier {
 }
 
 extension View {
-	func imagePicker(isPresented: Binding<Bool>, imageURL: Binding<String?>, title: String = "Select an image") -> some View {
+	func imagePicker(isPresented: Binding<Bool>, imageURL: Binding<ImageInfo?>, title: String = "Select an image") -> some View {
 		self.modifier(ImagePicker(isPresented: isPresented, title: title, callback: { imageURL.wrappedValue = $0 }))
 	}
 
-	func imagePicker(isPresented: Binding<Bool>, title: String = "Select an image", callback: @escaping (String?) -> Void) -> some View {
+	func imagePicker(isPresented: Binding<Bool>, title: String = "Select an image", callback: @escaping (ImageInfo) -> Void) -> some View {
 		self.modifier(ImagePicker(isPresented: isPresented, title: title, callback: callback))
 	}
 }

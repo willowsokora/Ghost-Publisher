@@ -81,9 +81,11 @@ struct PostView: View {
 				}, label: {
 					Image(systemName: "camera.fill").imageScale(.large)
 				})
-				.imagePicker(isPresented: $showImagePicker) { imageURL in
-					guard let imageURL = imageURL else { return }
-					self.post.markdown += "![Image](\(imageURL))"
+				.imagePicker(isPresented: $showImagePicker) { imageInfo in
+					self.post.markdown += "\n![Image](\(imageInfo.imageURL))"
+					if let attribution = imageInfo.attribution {
+						self.post.markdown += "\n\(attribution.markdownAttribution)\n"
+					}
 				}
 				Button(action: {
 					self.showPublishSheet = true

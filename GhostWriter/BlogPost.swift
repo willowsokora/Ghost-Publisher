@@ -42,7 +42,7 @@ class BlogPost: Identifiable, ObservableObject {
 			self.changed = true
 		}
 	}
-	@Published var featureImage: String?
+	@Published var featureImage: ImageInfo?
 	@Published var authors: [String]
 	@Published var excerpt: String
 	@Published var tags: [String]
@@ -82,7 +82,9 @@ class BlogPost: Identifiable, ObservableObject {
 		self.title = title
 		self.htmlContent = htmlContent
 		self.markdown = markdown
-		self.featureImage = featureImage
+		if let featureImage = featureImage {
+			self.featureImage = ImageInfo(imageURL: featureImage)
+		}
 		if authors.isEmpty {
 			self.authors = AuthManager.instance.getDefaultAuthors()
 		} else {

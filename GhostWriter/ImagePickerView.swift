@@ -14,7 +14,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
 
 	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 	var useCamera = false
-	let callback: (String?) -> Void
+	let callback: (ImageInfo) -> Void
 
 	func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePickerView>) -> ImagePickerView.UIViewControllerType {
 		let picker = UIImagePickerController()
@@ -57,7 +57,7 @@ struct ImagePickerView: UIViewControllerRepresentable {
 				picker.present(alert, animated: true)
 				ContentManager.instance.uploadImage(image) { imageURL, error in
 					if let imageURL = imageURL {
-						self.parent.callback(imageURL)
+						self.parent.callback(ImageInfo(imageURL: imageURL))
 					}
 					alert.dismiss()
 					self.parent.presentationMode.wrappedValue.dismiss()
