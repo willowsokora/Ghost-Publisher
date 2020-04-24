@@ -65,7 +65,7 @@ struct MarkdownView: UIViewRepresentable {
 					decisionHandler(.cancel)
 				}
 			}
-			decisionHandler(.cancel)
+			decisionHandler(.allow)
 		}
 	}
 }
