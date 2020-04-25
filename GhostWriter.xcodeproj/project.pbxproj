@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		162C5CD82453EC880010002D /* GhostWriterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162C5CD72453EC880010002D /* GhostWriterUITests.swift */; };
 		162C5CE02453ECB20010002D /* SnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162C5CDF2453ECB20010002D /* SnapshotTests.swift */; };
 		162C5CE22453ECBF0010002D /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162C5CE12453ECBF0010002D /* SnapshotHelper.swift */; };
 		162C5CE42453F1820010002D /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 162C5CE32453F1820010002D /* Credentials.plist */; };
@@ -110,7 +109,6 @@
 
 /* Begin PBXFileReference section */
 		162C5CD52453EC880010002D /* GhostWriterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GhostWriterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		162C5CD72453EC880010002D /* GhostWriterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostWriterUITests.swift; sourceTree = "<group>"; };
 		162C5CD92453EC880010002D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		162C5CDF2453ECB20010002D /* SnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotTests.swift; sourceTree = "<group>"; };
 		162C5CE12453ECBF0010002D /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
@@ -183,7 +181,6 @@
 		162C5CD62453EC880010002D /* GhostWriterUITests */ = {
 			isa = PBXGroup;
 			children = (
-				162C5CD72453EC880010002D /* GhostWriterUITests.swift */,
 				162C5CD92453EC880010002D /* Info.plist */,
 				162C5CDF2453ECB20010002D /* SnapshotTests.swift */,
 				162C5CE12453ECBF0010002D /* SnapshotHelper.swift */,
@@ -454,7 +451,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				162C5CD82453EC880010002D /* GhostWriterUITests.swift in Sources */,
 				162C5CE02453ECB20010002D /* SnapshotTests.swift in Sources */,
 				162C5CE22453ECBF0010002D /* SnapshotHelper.swift in Sources */,
 			);

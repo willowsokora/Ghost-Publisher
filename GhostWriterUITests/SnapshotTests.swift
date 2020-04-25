@@ -34,6 +34,8 @@ class SnapshotTests: XCTestCase {
 			return XCTFail("Please include a credential file with access information for a blog")
 		}
 
+		XCTAssert(!blogURL.starts(with: "https://"), "Blog url should omit https:// for test, this is due to xc ui tests being annoying")
+
 		let exists = NSPredicate(format: "exists == 1")
 
 		let setupButton = app.buttons["setup"]
@@ -49,23 +51,17 @@ class SnapshotTests: XCTestCase {
 		let blogURLField = app.textFields["blogURL"]
 		expectation(for: exists, evaluatedWith: blogURLField, handler: nil)
 		waitForExpectations(timeout: 5, handler: nil)
-		if (blogURLField.value as? String) ?? "" != blogURL {
-			blogURLField.tap(withNumberOfTaps: 5, numberOfTouches: 1) //Will select all text in the textfield
-			blogURLField.typeText("\(blogURLField)\(XCUIKeyboardKey.return.rawValue)")
-		} else {
-			blogURLField.tap()
-			blogURLField.typeText(XCUIKeyboardKey.return.rawValue)
-		}
+		blogURLField.typeTextSlowly(blogURL, returnAfter: true)
 
 		let usernameField = app.textFields["username"]
 		let passwordField = app.secureTextFields["password"]
 		expectation(for: exists, evaluatedWith: usernameField, handler: nil)
-		waitForExpectations(timeout: 5, handler: nil)
+		waitForExpectations(timeout: 10, handler: nil)
 		snapshot("Sign in")
 		usernameField.tap()
-		usernameField.typeText(username)
+		usernameField.typeTextSlowly(username)
 		passwordField.tap()
-		passwordField.typeText(password)
+		passwordField.typeTextSlowly(password)
 		app.buttons["signin"].tap()
 
 		expectation(for: exists, evaluatedWith: setupButton, handler: nil)
@@ -94,4 +90,17 @@ class SnapshotTests: XCTestCase {
 		snapshot("Options")
 	}
 
+}
+
+extension XCUIElement {
+
+	func typeTextSlowly(_ string: String, returnAfter: Bool = false) {
+		self.tap()
+		for letter in string {
+			self.typeText("\(letter)")
+		}
+		if returnAfter {
+			self.typeText(XCUIKeyboardKey.return.rawValue)
+		}
+	}
 }

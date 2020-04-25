@@ -17,7 +17,7 @@ devices([
 	"iPad Pro (12.9-inch) (3rd generation)"
 ])
 
-ios_versoin("13.3")
+ios_version("13.3")
 
 dark_mode(true)
 
