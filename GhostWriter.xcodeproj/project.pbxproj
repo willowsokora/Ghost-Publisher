@@ -49,7 +49,6 @@
 		16E5CCD8244D35E20058D1AC /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E5CCD7244D35E20058D1AC /* PostView.swift */; };
 		16E5CCDA244D41D00058D1AC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E5CCD9244D41D00058D1AC /* SearchView.swift */; };
 		16E5CCDC244D44BB0058D1AC /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E5CCDB244D44BB0058D1AC /* Util.swift */; };
-		16E5CCDE244D57A50058D1AC /* TextViewB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E5CCDD244D57A50058D1AC /* TextViewB.swift */; };
 		16E5CCE0244D586C0058D1AC /* KeyboardAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E5CCDF244D586B0058D1AC /* KeyboardAdapter.swift */; };
 		16E5CCEC244DFC830058D1AC /* MarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E5CCEB244DFC830058D1AC /* MarkdownView.swift */; };
 /* End PBXBuildFile section */
@@ -150,7 +149,6 @@
 		16E5CCD7244D35E20058D1AC /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		16E5CCD9244D41D00058D1AC /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		16E5CCDB244D44BB0058D1AC /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
-		16E5CCDD244D57A50058D1AC /* TextViewB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewB.swift; sourceTree = "<group>"; };
 		16E5CCDF244D586B0058D1AC /* KeyboardAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAdapter.swift; sourceTree = "<group>"; };
 		16E5CCEB244DFC830058D1AC /* MarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -270,7 +268,6 @@
 				16D5B266244E0DA400595E66 /* OptionsView.swift */,
 				16C0B6B72452531C00C7D832 /* ImagePicker.swift */,
 				16D5B286244E8DB400595E66 /* TextFieldAlert.swift */,
-				16E5CCDD244D57A50058D1AC /* TextViewB.swift */,
 				16E5CCDF244D586B0058D1AC /* KeyboardAdapter.swift */,
 				16C0B6B02452401700C7D832 /* UnsplashPhotoPickerView.swift */,
 				16E5CCD3244D120B0058D1AC /* SetupView.swift */,
@@ -471,7 +468,6 @@
 				16D5B267244E0DA400595E66 /* OptionsView.swift in Sources */,
 				16C0B6B12452401700C7D832 /* UnsplashPhotoPickerView.swift in Sources */,
 				16D86276244CF53B0022D6BB /* AppDelegate.swift in Sources */,
-				16E5CCDE244D57A50058D1AC /* TextViewB.swift in Sources */,
 				16D5B272244E47FA00595E66 /* PublishPostView.swift in Sources */,
 				16A09687244FC61600E96B73 /* RefreshableList.swift in Sources */,
 				16D8627A244CF53B0022D6BB /* PostsView.swift in Sources */,
