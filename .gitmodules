@@ -4,3 +4,6 @@
 [submodule "Down"]
 	path = Down
 	url = https://github.com/iwasrobbed/Down
+[submodule "MobiledocKit"]
+	path = MobiledocKit
+	url = https://github.com/jacobsokora/MobiledocKit

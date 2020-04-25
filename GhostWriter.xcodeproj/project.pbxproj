@@ -16,7 +16,6 @@
 		169ED708245346C500E713E8 /* Down.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 169ED702245346BE00E713E8 /* Down.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		16A09687244FC61600E96B73 /* RefreshableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A09686244FC61600E96B73 /* RefreshableList.swift */; };
 		16A0968C244FD10800E96B73 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 16A0968B244FD10800E96B73 /* Introspect */; };
-		16C0B67E2450A37300C7D832 /* MobileDocEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C0B67D2450A37300C7D832 /* MobileDocEditor.swift */; };
 		16C0B6842450B04500C7D832 /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 16C0B6832450B04500C7D832 /* SwiftUIX */; };
 		16C0B68C245201FC00C7D832 /* ActionOverViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C0B686245201FC00C7D832 /* ActionOverViewModifier.swift */; };
 		16C0B68D245201FC00C7D832 /* View+ActionOverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C0B687245201FC00C7D832 /* View+ActionOverModifier.swift */; };
@@ -116,7 +115,6 @@
 		1662BB4F2450084200293699 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		169ED6FB245346BE00E713E8 /* Down.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Down.xcodeproj; path = Down/Down.xcodeproj; sourceTree = "<group>"; };
 		16A09686244FC61600E96B73 /* RefreshableList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableList.swift; sourceTree = "<group>"; };
-		16C0B67D2450A37300C7D832 /* MobileDocEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileDocEditor.swift; sourceTree = "<group>"; };
 		16C0B686245201FC00C7D832 /* ActionOverViewModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionOverViewModifier.swift; sourceTree = "<group>"; };
 		16C0B687245201FC00C7D832 /* View+ActionOverModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+ActionOverModifier.swift"; sourceTree = "<group>"; };
 		16C0B688245201FC00C7D832 /* ActionOverButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionOverButton.swift; sourceTree = "<group>"; };
@@ -254,7 +252,6 @@
 				16D86275244CF53B0022D6BB /* AppDelegate.swift */,
 				1662BB4F2450084200293699 /* SceneDelegate.swift */,
 				16D86279244CF53B0022D6BB /* PostsView.swift */,
-				16C0B67D2450A37300C7D832 /* MobileDocEditor.swift */,
 				16A09686244FC61600E96B73 /* RefreshableList.swift */,
 				16E5CCDB244D44BB0058D1AC /* Util.swift */,
 				16C0B6B52452516700C7D832 /* AsyncImage.swift */,
@@ -481,7 +478,6 @@
 				16E5CCD4244D120B0058D1AC /* SetupView.swift in Sources */,
 				16C0B6932452090D00C7D832 /* ImagePickerView.swift in Sources */,
 				1662BB502450084200293699 /* SceneDelegate.swift in Sources */,
-				16C0B67E2450A37300C7D832 /* MobileDocEditor.swift in Sources */,
 				16E5CCD8244D35E20058D1AC /* PostView.swift in Sources */,
 				16C0B6B82452531C00C7D832 /* ImagePicker.swift in Sources */,
 				16D86291244CF7890022D6BB /* ContentManager.swift in Sources */,
