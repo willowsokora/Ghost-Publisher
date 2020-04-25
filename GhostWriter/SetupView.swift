@@ -56,6 +56,7 @@ struct SetupView: View {
 									}
 								}.resume()
 							}.keyboardType(.URL)
+								.accessibility(label: Text("blogURL"))
 							ActivityIndicatorView(animating: $verifying)
 						}
 						if !message.isEmpty {
@@ -66,7 +67,10 @@ struct SetupView: View {
 				if verified {
 					Section(header: Text("Credentials")) {
 						TextField("Email", text: $email)
+							.keyboardType(.emailAddress)
+							.accessibility(label: Text("username"))
 						SecureField("Password", text: $password)
+							.accessibility(label: Text("password"))
 					}
 					Section {
 						HStack {
@@ -81,7 +85,7 @@ struct SetupView: View {
 								}
 							}, label: {
 								Text("Sign in")
-							})
+							}).accessibility(label: Text("signin"))
 							Spacer()
 						}
 					}

@@ -50,7 +50,7 @@ struct PostsView: View {
 			}
 		}, label: {
 			Text(self.authManager.session == nil ? "Sign in" : "Sign out")
-		})
+		}).accessibility(label: Text("setup"))
 	}
 
 	var composeButton: some View {

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		162C5CD82453EC880010002D /* GhostWriterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162C5CD72453EC880010002D /* GhostWriterUITests.swift */; };
+		162C5CE02453ECB20010002D /* SnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162C5CDF2453ECB20010002D /* SnapshotTests.swift */; };
+		162C5CE22453ECBF0010002D /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162C5CE12453ECBF0010002D /* SnapshotHelper.swift */; };
+		162C5CE42453F1820010002D /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 162C5CE32453F1820010002D /* Credentials.plist */; };
 		163456E824525FF3002430B9 /* Unsplash.plist in Resources */ = {isa = PBXBuildFile; fileRef = 163456E724525FF3002430B9 /* Unsplash.plist */; };
 		1662BB502450084200293699 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1662BB4F2450084200293699 /* SceneDelegate.swift */; };
 		169ED707245346C500E713E8 /* Down.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 169ED702245346BE00E713E8 /* Down.framework */; };
@@ -52,6 +56,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		162C5CDA2453EC880010002D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 16D8626A244CF53B0022D6BB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 16D86271244CF53B0022D6BB;
+			remoteInfo = GhostWriter;
+		};
 		169ED701245346BE00E713E8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 169ED6FB245346BE00E713E8 /* Down.xcodeproj */;
@@ -98,6 +109,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		162C5CD52453EC880010002D /* GhostWriterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GhostWriterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		162C5CD72453EC880010002D /* GhostWriterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostWriterUITests.swift; sourceTree = "<group>"; };
+		162C5CD92453EC880010002D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		162C5CDF2453ECB20010002D /* SnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotTests.swift; sourceTree = "<group>"; };
+		162C5CE12453ECBF0010002D /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
+		162C5CE32453F1820010002D /* Credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Credentials.plist; sourceTree = "<group>"; };
 		163456E724525FF3002430B9 /* Unsplash.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Unsplash.plist; sourceTree = "<group>"; };
 		1662BB4F2450084200293699 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		169ED6FB245346BE00E713E8 /* Down.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Down.xcodeproj; path = Down/Down.xcodeproj; sourceTree = "<group>"; };
@@ -141,6 +158,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		162C5CD22453EC880010002D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		16D8626F244CF53B0022D6BB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -156,6 +180,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		162C5CD62453EC880010002D /* GhostWriterUITests */ = {
+			isa = PBXGroup;
+			children = (
+				162C5CD72453EC880010002D /* GhostWriterUITests.swift */,
+				162C5CD92453EC880010002D /* Info.plist */,
+				162C5CDF2453ECB20010002D /* SnapshotTests.swift */,
+				162C5CE12453ECBF0010002D /* SnapshotHelper.swift */,
+				162C5CE32453F1820010002D /* Credentials.plist */,
+			);
+			path = GhostWriterUITests;
+			sourceTree = "<group>";
+		};
 		164BD1FE244FD78000249A95 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +236,7 @@
 				169ED6FB245346BE00E713E8 /* Down.xcodeproj */,
 				16C0B6A624523FFA00C7D832 /* UnsplashPhotoPicker.xcodeproj */,
 				16D86274244CF53B0022D6BB /* GhostWriter */,
+				162C5CD62453EC880010002D /* GhostWriterUITests */,
 				16D86273244CF53B0022D6BB /* Products */,
 				164BD1FE244FD78000249A95 /* Frameworks */,
 			);
@@ -209,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				16D86272244CF53B0022D6BB /* Ghost Publisher.app */,
+				162C5CD52453EC880010002D /* GhostWriterUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -263,6 +301,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		162C5CD42453EC880010002D /* GhostWriterUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 162C5CDC2453EC880010002D /* Build configuration list for PBXNativeTarget "GhostWriterUITests" */;
+			buildPhases = (
+				162C5CD12453EC880010002D /* Sources */,
+				162C5CD22453EC880010002D /* Frameworks */,
+				162C5CD32453EC880010002D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				162C5CDB2453EC880010002D /* PBXTargetDependency */,
+			);
+			name = GhostWriterUITests;
+			productName = GhostWriterUITests;
+			productReference = 162C5CD52453EC880010002D /* GhostWriterUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		16D86271244CF53B0022D6BB /* GhostWriter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 16D86286244CF53B0022D6BB /* Build configuration list for PBXNativeTarget "GhostWriter" */;
@@ -292,10 +348,14 @@
 		16D8626A244CF53B0022D6BB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1140;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Jacob Sokora";
 				TargetAttributes = {
+					162C5CD42453EC880010002D = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = 16D86271244CF53B0022D6BB;
+					};
 					16D86271244CF53B0022D6BB = {
 						CreatedOnToolsVersion = 11.4.1;
 					};
@@ -330,6 +390,7 @@
 			projectRoot = "";
 			targets = (
 				16D86271244CF53B0022D6BB /* GhostWriter */,
+				162C5CD42453EC880010002D /* GhostWriterUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -366,6 +427,14 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		162C5CD32453EC880010002D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				162C5CE42453F1820010002D /* Credentials.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		16D86270244CF53B0022D6BB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -381,6 +450,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		162C5CD12453EC880010002D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				162C5CD82453EC880010002D /* GhostWriterUITests.swift in Sources */,
+				162C5CE02453ECB20010002D /* SnapshotTests.swift in Sources */,
+				162C5CE22453ECBF0010002D /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		16D8626E244CF53B0022D6BB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -420,6 +499,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		162C5CDB2453EC880010002D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 16D86271244CF53B0022D6BB /* GhostWriter */;
+			targetProxy = 162C5CDA2453EC880010002D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		16D86280244CF53B0022D6BB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -432,6 +519,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		162C5CDD2453EC880010002D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4ZEY85X5FX;
+				INFOPLIST_FILE = GhostWriterUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.jacobsokora.GhostWriterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GhostWriter;
+			};
+			name = Debug;
+		};
+		162C5CDE2453EC880010002D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4ZEY85X5FX;
+				INFOPLIST_FILE = GhostWriterUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.jacobsokora.GhostWriterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = GhostWriter;
+			};
+			name = Release;
+		};
 		16D86284244CF53B0022D6BB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -553,7 +680,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GhostWriter/Ghost Publisher.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"GhostWriter/Preview Content\"";
 				DEVELOPMENT_TEAM = 4ZEY85X5FX;
@@ -570,7 +697,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = me.jacobsokora.ghostwriter;
 				PRODUCT_NAME = "Ghost Publisher";
 				SUPPORTS_MACCATALYST = NO;
@@ -589,7 +716,7 @@
 				CODE_SIGN_ENTITLEMENTS = "GhostWriter/Ghost Publisher.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GhostWriter/Preview Content\"";
 				DEVELOPMENT_TEAM = 4ZEY85X5FX;
 				ENABLE_PREVIEWS = YES;
@@ -600,7 +727,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.3;
+				MARKETING_VERSION = 0.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = me.jacobsokora.ghostwriter;
 				PRODUCT_NAME = "Ghost Publisher";
 				SUPPORTS_MACCATALYST = NO;
@@ -614,6 +741,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		162C5CDC2453EC880010002D /* Build configuration list for PBXNativeTarget "GhostWriterUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				162C5CDD2453EC880010002D /* Debug */,
+				162C5CDE2453EC880010002D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		16D8626D244CF53B0022D6BB /* Build configuration list for PBXProject "GhostWriter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

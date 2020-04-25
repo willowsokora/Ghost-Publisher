@@ -104,6 +104,7 @@ struct PostView: View {
 				.sheet(isPresented: $showOptionsSheet) {
 					OptionsView(post: self.post)
 				}
+				.accessibility(label: Text("options"))
 			}
 		)
 		.navigationBarTitle("", displayMode: .inline)
