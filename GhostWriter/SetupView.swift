@@ -37,8 +37,8 @@ struct SetupView: View {
 						HStack {
 							TextField("Blog URL", text: $blogURL) {
 								self.verifying = true
-								guard self.blogURL.trimmingCharacters(in: ["/"]).range(of: "^(http:\\/\\/www\\.|https:\\/\\/www\\.|http:\\/\\/|https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$", options: .regularExpression) != nil else {
-									self.message = "Please enter a valid URL"
+								guard self.blogURL.trimmingCharacters(in: ["/"]).range(of: "^(|https:\\/\\/www\\.||https:\\/\\/)?[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}(:[0-9]{1,5})?(\\/.*)?$", options: .regularExpression) != nil else {
+									self.message = "Please enter a valid URL (must be https)"
 									self.verifying = false
 									self.error = true
 									return
