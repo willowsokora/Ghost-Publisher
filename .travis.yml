@@ -1,5 +1,5 @@
 language: swift
 xcode_project: GhostWriter.xcodeproj
-xcode_scheme: GhostWriter
+xcode_scheme: GhostWriterUITests
 xcode_testination: platform=iOS Simulator,OS=13.3,name=iPhone 11
 osx_image: xcode11.3
