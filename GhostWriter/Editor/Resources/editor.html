@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta name="supported-color-schemes" content="light dark">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="mobiledoc.css">
+	</head>
+	<body>
+		<div id="editor"></div>
+		<script type="text/javascript" src="./mobiledoc.js"></script>
+		<script type="text/javascript">
+			var editor = new Editor();
+			
+			const image = {
+				name: 'image',
+				type: 'dom',
+
+				render({payload}) {
+					if (!payload.src) {
+						return document.createTextNode('');
+					}
+
+					let figure = document.createElement('figure');
+					let img = document.createElement('img');
+					img.setAttribute('src', payload.src);
+					if (payload.alt) {
+						img.setAttribute('alt', payload.alt);
+					}
+					if (payload.title) {
+						img.setAttribute('title', payload.title);
+					}
+					figure.appendChild(img);
+
+					if (payload.caption) {
+						let figcaption = document.createElement('figcaption');
+						figcaption.innerText = payload.caption;
+						figure.appendChild(figcaption);
+					}
+
+					return figure;
+				}
+			};
+
+			const embed = {
+				name: 'embed',
+				type: 'dom',
+				
+				render({payload}) {
+					if (!payload.html) {
+						return document.createTextNode('');
+					}
+					const figure = document.createElement('figure');
+					
+					figure.innerHTML = payload.html;
+
+					if (payload.caption) {
+						let figcaption = document.createElement('figcaption');
+						figcaption.innerText = payload.caption;
+						figure.appendChild(figcaption);
+					}
+					
+					return figure;
+				}
+			};
+
+			const hr = {
+				name: 'hr',
+				type: 'dom',
+
+				render() {
+					return document.createElement('hr');
+				}
+			};
+
+			const code = {
+				name: 'code',
+				type: 'dom',
+
+				render(payload) {
+					if (!payload.code) {
+						return document.createTextNode('');
+					}
+
+					let pre = document.createElement('pre');
+					let code = document.createElement('code');
+
+					if (payload.language) {
+						code.setAttribute('class', `language-${payload.language}`);
+					}
+
+					code.appendChild(document.createTextNode(payload.code));
+					pre.appendChild(code);
+
+					if (payload.caption) {
+						let figure = document.createElement('figure');
+						figure.appendChild(pre);
+
+						let figcaption = document.createElement('figcaption');
+						figcaption.innerText = payload.caption;
+						figure.appendChild(figcaption);
+
+						return figure;
+					} else {
+						return pre;
+					}
+				}
+			};
+
+			const html = {
+				name: 'html',
+				type: 'dom',
+				config: {
+					commentWrapper: true
+				},
+
+				render(payload) {
+					if (!payload.html) {
+						return document.createTextNode('');
+					}
+
+					let div = document.createElement('div');
+					div.innerHTML = payload.html;
+					return div;
+				}
+			};
+
+			function bootstrapEditor(doc) {
+				editor = new Editor({
+					placeholder: 'Write your post',
+					autofocus: true,
+					mobiledoc: JSON.parse(doc),
+					cards: [image, embed, hr, code, html],
+					unknownCardHandler: ({env}) => {
+						return document.createTextNode(`Displaying ${env.name}s has not been implemented yet`);
+					},
+					unknownAtomHandler: ({env}) => {
+						return document.createTextNode(`Displaying ${env.name}s has not been implemented yet`);
+					}
+				});
+				editor.render(document.getElementById('editor'));
+				window.editor = editor;
+			}
+
+			function bootstrapDefault(){
+				let postdoc = "{\"version\":\"0.3.2\",\"atoms\":[],\"cards\":[[\"image\",{\"caption\":\"Design proof\",\"src\":\"https://thoughts.jacobsokora.me/content/images/2020/05/DESIGN-PROOF-01.png\"}],[\"embed\",{\"url\":\"https://twitter.com/maybemerritt/status/1258516985790394368?s=20\",\"html\":\"<blockquote class=\\\"twitter-tweet\\\"><p lang=\\\"en\\\" dir=\\\"ltr\\\">not that literally anyone cares but i had a mindset-changing epiphany when i went camping last weekend and i’ve just felt...really good lately. like about me and who i am and what it means to be me. i also want to move to the mountains and own a farm now</p>&mdash; big dumb idiot (@maybemerritt) <a href=\\\"https://twitter.com/maybemerritt/status/1258516985790394368?ref_src=twsrc%5Etfw\\\">May 7, 2020</a></blockquote>\\n<script async src=\\\"https://platform.twitter.com/widgets.js\\\" charset=\\\"utf-8\\\"><\/script>\\n\",\"type\":\"rich\"}]],\"markups\":[],\"sections\":[[1,\"p\",[[0,[],0,\"What started seeming like a slow, boring novel, surprised me with clever twists and a refreshing take on time travel that created a story I had trouble putting down. The beginning makes the book seem like a story of an\"]]],[10,0],[10,1],[1,\"p\",[]]]}"
+				bootstrapEditor(postdoc);
+				console.log("Default post loaded")
+			}
+
+			window.serialize = function serialize() {
+				return JSON.stringify(editor.serialize('0.3.2'));
+			}
+
+			bootstrapDefault();
+		</script>
+	</body>
+</html>

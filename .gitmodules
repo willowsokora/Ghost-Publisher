@@ -1,9 +1,6 @@
 [submodule "unsplash-photopicker-ios"]
 	path = unsplash-photopicker-ios
 	url = https://github.com/unsplash/unsplash-photopicker-ios.git
-[submodule "Down"]
-	path = Down
-	url = https://github.com/iwasrobbed/Down
 [submodule "MobiledocKit"]
 	path = MobiledocKit
 	url = https://github.com/jacobsokora/MobiledocKit
