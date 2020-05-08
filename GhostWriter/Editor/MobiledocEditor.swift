@@ -52,21 +52,8 @@ struct MobiledocEditor: UIViewRepresentable {
 		if var newCardPayload = newCardPayload, let type = newCardPayload.removeValue(forKey: "type") as? String {
 			do {
 				let payloadJSON = try JSONSerialization.data(withJSONObject: newCardPayload)
-				guard let payloadString = String(data: payloadJSON, encoding: .utf8) else {
-					DispatchQueue.main.async {
-						self.newCardPayload = nil
-					}
-					return
-				}
-				mobiledocEditorView.webView.evaluateJavaScript("insertCard('\(type)', '\(payloadString)')")
-				DispatchQueue.main.async {
-					self.newCardPayload = nil
-				}
-			} catch {
-				DispatchQueue.main.async {
-					self.newCardPayload = nil
-				}
-			}
+				mobiledocEditorView.webView.evaluateJavaScript("insertCard('\(type)', '\(payloadJSON.base64EncodedString())')")
+			} catch {}
 		}
 	}
 

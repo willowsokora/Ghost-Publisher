@@ -64,8 +64,9 @@ struct PostView: View {
 						"src": imageInfo.imageURL,
 					]
 					if let attribution = imageInfo.attribution {
-						payload["comment"] = attribution.htmlAttribution
+						payload["caption"] = attribution.htmlAttribution
 					}
+					self.newCardPayload = payload
 				}
 				Button(action: {
 					self.showPublishSheet = true

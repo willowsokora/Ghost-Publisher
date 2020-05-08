@@ -179,8 +179,16 @@
 				editor.toggleSection(section);
 			}
 
+			//updateUIView was being called twice for state changes, so make sure the same image isn't inserted twice
+			var lastImage;
 			window.insertCard = function(type, payload) {
-				editor.insertCard(type, JSON.parse(payload), true);
+				let cardPayload = JSON.parse(atob(payload));
+				if (cardPayload.src == lastImage) {
+					return;
+				} else {
+					lastImage = cardPayload.src;
+				}
+				editor.insertCard(type, cardPayload);
 			}
 
 			window.insertLink = function(href) {
