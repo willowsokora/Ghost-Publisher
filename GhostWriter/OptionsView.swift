@@ -76,7 +76,7 @@ struct OptionsView: View {
 								self.post.authors.append(self.author)
 								self.author = ""
 							}, label: {
-								Image(systemName: "plus")
+								Image(systemName: .plus)
 							})
 						}
 					}
@@ -92,7 +92,7 @@ struct OptionsView: View {
 								self.post.tags.append(self.tag)
 								self.tag = ""
 							}, label: {
-								Image(systemName: "plus")
+								Image(systemName: .plus)
 							})
 						}
 					}

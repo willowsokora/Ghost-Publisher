@@ -75,12 +75,6 @@ class SnapshotTests: XCTestCase {
 
 		snapshot("Editor")
 
-		app.segmentedControls.element(boundBy: 0).buttons.element(boundBy: 1).tap()
-
-		sleep(5)
-
-		snapshot("Preview")
-
 		app.buttons["options"].tap()
 
 		expectation(for: exists, evaluatedWith: app.images["image"], handler: nil)

@@ -55,7 +55,7 @@ struct PostsView: View {
 
 	var composeButton: some View {
 		NavigationLink(destination: PostView()) {
-			Image(systemName: "square.and.pencil").imageScale(.large)
+			Image(systemName: .squareAndPencil).imageScale(.large)
 		}
 	}
 
@@ -64,7 +64,7 @@ struct PostsView: View {
 			return Button(action: {
 				self.contentManager.loadPosts()
 			}, label: {
-				Image(systemName: "arrow.2.circlepath").imageScale(.large)
+				Image(systemName: .arrow2Circlepath).imageScale(.large)
 			})
 		#else
 			return Text("")
@@ -76,7 +76,7 @@ struct PostsView: View {
 			if self.authManager.session != nil {
 				refreshButton
 				NavigationLink(destination: PostView()) {
-					Image(systemName: "square.and.pencil").imageScale(.large)
+					Image(systemName: .squareAndPencil).imageScale(.large)
 				}
 			}
 		}

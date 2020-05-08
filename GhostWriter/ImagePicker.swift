@@ -21,8 +21,8 @@ struct ImageInfo {
 }
 
 extension UnsplashUser {
-	var markdownAttribution: String {
-		return "Photo by [\(name ?? "Anonymous")](https://unsplash.com/@\(username)?utm_source=ghost_publisher&utm_medium=referral) on [Unsplash](https://unsplash.com/?utm_source=ghost_publisher&utm_medium=referral)"
+	var htmlAttribution: String {
+		return "Photo by <a href=\"https://unsplash.com/@\(username)?utm_source=ghost_publisher&utm_medium=referral\">\(name ?? "Anonymous")</a> on <a href=\"https://unsplash.com/?utm_source=ghost_publisher&utm_medium=referral\">Unsplash</a>"
 	}
 }
 

@@ -8,7 +8,6 @@
 
 import SwiftUI
 import Alamofire
-import Down
 
 let DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
@@ -122,7 +121,7 @@ class ContentManager: ObservableObject {
 	}
 
 	func loadPosts(callback: @escaping (String?) -> Void = { _ in }) {
-		guard let session = AuthManager.instance.session, let url = URL(string: "\(session.blogURL)/ghost/api/v3/admin/posts?formats=html") else {
+		guard let session = AuthManager.instance.session, let url = URL(string: "\(session.blogURL)/ghost/api/v3/admin/posts") else {
 			callback("Invalid authentication session")
 			return
 		}
@@ -162,14 +161,14 @@ struct CreatePostPayload: Codable {
 
 	init(_ blogPost: BlogPost) {
 		self.posts = [
-			PostPayload(slug: blogPost.slug, title: blogPost.title, html: (try? Down(markdownString: blogPost.markdown).toHTML()) ?? "", feature_image: blogPost.featureImage?.imageURL, authors: blogPost.authors, excerpt: blogPost.excerpt, tags: blogPost.tags, status: blogPost.status, visibility: blogPost.visibility, featured: blogPost.featured, updated_at: blogPost.updatedAt, published_at: blogPost.publishedAt?.utcString)
+			PostPayload(slug: blogPost.slug, title: blogPost.title, mobiledoc: blogPost.mobiledoc, feature_image: blogPost.featureImage?.imageURL, authors: blogPost.authors, excerpt: blogPost.excerpt, tags: blogPost.tags, status: blogPost.status, visibility: blogPost.visibility, featured: blogPost.featured, updated_at: blogPost.updatedAt, published_at: blogPost.publishedAt?.utcString)
 		]
 	}
 
 	struct PostPayload: Codable {
 		let slug: String
 		let title: String
-		let html: String
+		let mobiledoc: String
 		let feature_image: String?
 		let authors: [String]
 		let excerpt: String

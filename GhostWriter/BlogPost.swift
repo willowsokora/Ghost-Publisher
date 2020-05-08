@@ -36,12 +36,6 @@ class BlogPost: Identifiable, ObservableObject {
 	@Published var id: String
 	@Published var slug: String
 	@Published var title: String
-	var htmlContent: String
-	@Published var markdown: String {
-		didSet {
-			self.changed = true
-		}
-	}
 	@Published var featureImage: ImageInfo?
 	@Published var authors: [String]
 	@Published var excerpt: String
@@ -53,16 +47,10 @@ class BlogPost: Identifiable, ObservableObject {
 	var publishedAt: Date?
 	@Published var updatedAt: String?
 	@Published var changed = false
-	var mobileDoc: String {
-		"""
-		{
-			"version": "0.3.1",
-			"markups": [],
-			"atoms": [],
-			"cards": [["markdown", { "cardName": "markdown", "markdown": "\(markdown)" }]],
-			"sections": [[10, 0]]
+	@Published var mobiledoc: String {
+		didSet {
+			self.changed = true
 		}
-		"""
 	}
 
 	var publishedDescriptor: String {
@@ -76,12 +64,11 @@ class BlogPost: Identifiable, ObservableObject {
 		}
 	}
 
-	init(id: String = "", slug: String = "", title: String = "", htmlContent: String = "", markdown: String = "", featureImage: String? = nil, authors: [String] = [], excerpt: String = "", tags: [String] = [], status: Status = .draft, visibility: Visibility = .public, featured: Bool = false, createdAt: Date = Date(), publishedAt: Date? = nil, updatedAt: String? = nil) {
+	init(id: String = "", slug: String = "", title: String = "", mobiledoc: String = "", featureImage: String? = nil, authors: [String] = [], excerpt: String = "", tags: [String] = [], status: Status = .draft, visibility: Visibility = .public, featured: Bool = false, createdAt: Date = Date(), publishedAt: Date? = nil, updatedAt: String? = nil) {
 		self.id = id
 		self.slug = slug
 		self.title = title
-		self.htmlContent = htmlContent
-		self.markdown = markdown
+		self.mobiledoc = mobiledoc
 		if let featureImage = featureImage {
 			self.featureImage = ImageInfo(imageURL: featureImage)
 		}
@@ -165,7 +152,17 @@ class BlogPost: Identifiable, ObservableObject {
 				return nil
 		}
 		let featureImage = dict["feature_image"] as? String
-		let html = dict["html"] as? String ?? ""
+		let defaultMobiledoc =
+		"""
+			{
+				"version": "0.3.2",
+				"markups": [],
+				"atoms": [],
+				"cards": [],
+				"sections": []
+			}
+		"""
+		let mobiledoc = dict["mobiledoc"] as? String ?? defaultMobiledoc
 		var authorEmails = [String]()
 		var tagNames = [String]()
 		var publishedAt: Date?
@@ -185,7 +182,7 @@ class BlogPost: Identifiable, ObservableObject {
 		if let publishedAtString = dict["published_at"] as? String {
 			publishedAt = dateFormatter.date(from: publishedAtString)
 		}
-		return BlogPost(id: id, slug: slug, title: title, htmlContent: html, featureImage: featureImage, authors: authorEmails, tags: tagNames, status: status, visibility: visibility, featured: featured, createdAt: createdAt, publishedAt: publishedAt, updatedAt: updatedAt)
+		return BlogPost(id: id, slug: slug, title: title, mobiledoc: mobiledoc, featureImage: featureImage, authors: authorEmails, tags: tagNames, status: status, visibility: visibility, featured: featured, createdAt: createdAt, publishedAt: publishedAt, updatedAt: updatedAt)
 	}
 
 	func generateSlug() -> String {

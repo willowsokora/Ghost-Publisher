@@ -7,41 +7,26 @@
 //
 
 import SwiftUI
-import SwiftUIX
 
 struct PostView: View {
 
-	let renderOptions = [ "Editor", "Preview" ]
-	let markdownCheat = """
-		## markdown quick reference
-		# headers
-		*emphasis*
-		**strong**
-		* list
-		>block quote
-			code (4 spaces indent)
-		[links](https://wikipedia.org)
-		"""
-
 	@ObservedObject var post: BlogPost = BlogPost()
 	@State var isEditing = false
-	@State var render = "Editor"
 	@State var saveStatus = "New"
 	@State var showOptionsSheet = false
 	@State var showPublishSheet = false
 	@State var saveTimer: Timer? = nil
 	@State var showImagePicker = false
+	@State var showLinkDialog = false
+	@State var insertLinkTmp = ""
+
+	@State var newCardPayload: [String: Any?]? = nil
 
     var body: some View {
 		VStack {
 			HStack {
 				Text(saveStatus).font(.footnote).foregroundColor(.placeholderText)
 				Spacer()
-				Picker(selection: $render, label: Text("Render mode")) {
-					ForEach(renderOptions, id: \.self) {
-						Text($0)
-					}
-				}.pickerStyle(SegmentedPickerStyle())
 			}
 			TextField("Title", text: $post.title,
 				onEditingChanged: { focused in
@@ -64,33 +49,28 @@ struct PostView: View {
 				}
 			).font(.title)
 			Divider()
-			if render == "Editor" {
-				TextView(markdownCheat, text: $post.markdown)
-				if post.markdown.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-					HelperWebView(post: post, content: $post.markdown).frame(width: 0, height: 0, alignment: .center)
-				}
-			} else {
-				MarkdownView(content: self.post.markdown)
-			}
-
+			MobiledocEditor(mobiledoc: $post.mobiledoc, newCardPayload: $newCardPayload)
 		}
 		.navigationBarItems(
 			trailing: HStack() {
 				Button(action: {
 					self.showImagePicker = true
 				}, label: {
-					Image(systemName: "camera.fill").imageScale(.large)
+					Image(systemName: .cameraFill).imageScale(.large)
 				})
 				.imagePicker(isPresented: $showImagePicker) { imageInfo in
-					self.post.markdown += "\n![Image](\(imageInfo.imageURL))"
+					var payload = [
+						"type": "image",
+						"src": imageInfo.imageURL,
+					]
 					if let attribution = imageInfo.attribution {
-						self.post.markdown += "\n\(attribution.markdownAttribution)\n"
+						payload["comment"] = attribution.htmlAttribution
 					}
 				}
 				Button(action: {
 					self.showPublishSheet = true
 				}, label: {
-					Image(systemName: "paperplane.fill").imageScale(.large)
+					Image(systemName: .paperplaneFill).imageScale(.large)
 				})
 				.disabled(self.post.title.isEmpty)
 				.sheet(isPresented: $showPublishSheet) {
@@ -99,7 +79,7 @@ struct PostView: View {
 				Button(action: {
 					self.showOptionsSheet = true
 				}, label: {
-					Image(systemName: "gear").imageScale(.large)
+					Image(systemName: .gear).imageScale(.large)
 				})
 				.sheet(isPresented: $showOptionsSheet) {
 					OptionsView(post: self.post)
@@ -109,7 +89,6 @@ struct PostView: View {
 		)
 		.navigationBarTitle("", displayMode: .inline)
 		.padding()
-		.modifier(KeyboardAdapter())
 		.onAppear {
 			if !self.post.new {
 				self.saveStatus = self.post.status.rawValue.capitalized

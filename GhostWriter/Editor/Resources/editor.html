@@ -11,6 +11,30 @@
 		<div id="editor"></div>
 		<script type="text/javascript" src="./mobiledoc.js"></script>
 		<script type="text/javascript">
+
+			function log(emoji, type, args) {
+			  window.webkit.messageHandlers.logging.postMessage(
+				`${emoji} JS ${type}: ${Object.values(args)
+				  .map(v => typeof(v) === "undefined" ? "undefined" : typeof(v) === "object" ? JSON.stringify(v) : v.toString())
+				  .map(v => v.substring(0, 3000)) // Limit msg to 3000 chars
+				  .join(", ")}`
+			  )
+			}
+
+			let originalLog = window.console.log
+			let originalWarn = window.console.warn
+			let originalError = window.console.error
+			let originalDebug = window.console.debug
+
+			window.console.log = function() { log("📗", "log", arguments); originalLog.apply(null, arguments) }
+			window.console.warn = function() { log("📙", "warning", arguments); originalWarn.apply(null, arguments) }
+			window.console.error = function() { log("📕", "error", arguments); originalError.apply(null, arguments) }
+			window.console.debug = function() { log("📘", "debug", arguments); originalDebug.apply(null, arguments) }
+
+			window.addEventListener("error", function(e) {
+			   log("💥", "Uncaught", [`${e.message} at ${e.filename}:${e.lineno}:${e.colno}`])
+			})
+
 			var editor = new Editor();
 			
 			const image = {
@@ -41,7 +65,7 @@
 
 					return figure;
 				}
-			};
+			}
 
 			const embed = {
 				name: 'embed',
@@ -63,7 +87,7 @@
 					
 					return figure;
 				}
-			};
+			}
 
 			const hr = {
 				name: 'hr',
@@ -72,88 +96,105 @@
 				render() {
 					return document.createElement('hr');
 				}
-			};
+			}
 
-			const code = {
-				name: 'code',
-				type: 'dom',
+			// const code = {
+			// 	name: 'code',
+			// 	type: 'dom',
 
-				render(payload) {
-					if (!payload.code) {
-						return document.createTextNode('');
-					}
+			// 	render(payload) {
+			// 		if (!payload.code) {
+			// 			return document.createTextNode('');
+			// 		}
 
-					let pre = document.createElement('pre');
-					let code = document.createElement('code');
+			// 		let pre = document.createElement('pre');
+			// 		let code = document.createElement('code');
 
-					if (payload.language) {
-						code.setAttribute('class', `language-${payload.language}`);
-					}
+			// 		if (payload.language) {
+			// 			code.setAttribute('class', `language-${payload.language}`);
+			// 		}
 
-					code.appendChild(document.createTextNode(payload.code));
-					pre.appendChild(code);
+			// 		code.appendChild(document.createTextNode(payload.code));
+			// 		pre.appendChild(code);
 
-					if (payload.caption) {
-						let figure = document.createElement('figure');
-						figure.appendChild(pre);
+			// 		if (payload.caption) {
+			// 			let figure = document.createElement('figure');
+			// 			figure.appendChild(pre);
 
-						let figcaption = document.createElement('figcaption');
-						figcaption.innerText = payload.caption;
-						figure.appendChild(figcaption);
+			// 			let figcaption = document.createElement('figcaption');
+			// 			figcaption.innerText = payload.caption;
+			// 			figure.appendChild(figcaption);
 
-						return figure;
-					} else {
-						return pre;
-					}
-				}
-			};
+			// 			return figure;
+			// 		} else {
+			// 			return pre;
+			// 		}
+			// 	}
+			// }
 
-			const html = {
-				name: 'html',
-				type: 'dom',
-				config: {
-					commentWrapper: true
-				},
+			// const html = {
+			// 	name: 'html',
+			// 	type: 'dom',
+			// 	config: {
+			// 		commentWrapper: true
+			// 	},
 
-				render(payload) {
-					if (!payload.html) {
-						return document.createTextNode('');
-					}
+			// 	render(payload) {
+			// 		if (!payload.html) {
+			// 			return document.createTextNode('');
+			// 		}
 
-					let div = document.createElement('div');
-					div.innerHTML = payload.html;
-					return div;
-				}
-			};
+			// 		let div = document.createElement('div');
+			// 		div.innerHTML = payload.html;
+			// 		return div;
+			// 	}
+			// }
 
-			function bootstrapEditor(doc) {
+			window.bootstrapEditor = function(doc) {
 				editor = new Editor({
 					placeholder: 'Write your post',
 					autofocus: true,
-					mobiledoc: JSON.parse(doc),
-					cards: [image, embed, hr, code, html],
+					//Decode from base64 and convert to json object
+					mobiledoc: JSON.parse(atob(doc)),
+					cards: [image, embed, hr],
 					unknownCardHandler: ({env}) => {
-						return document.createTextNode(`Displaying ${env.name}s has not been implemented yet`);
+						return document.createTextNode(`Displaying ${env.name}s has not been implemented (don't worry, it's still there behind the scenes)`);
 					},
 					unknownAtomHandler: ({env}) => {
-						return document.createTextNode(`Displaying ${env.name}s has not been implemented yet`);
+						return document.createTextNode(`Displaying ${env.name}s has not been implemented (don't worry, it's still there behind the scenes)`);
 					}
 				});
+				editor.postDidChange(() => {
+					//Send the serialized post content back when it changes
+					window.webkit.messageHandlers.postDidChange.postMessage(JSON.stringify(editor.serialize('0.3.2')));
+				});
 				editor.render(document.getElementById('editor'));
-				window.editor = editor;
 			}
 
-			function bootstrapDefault(){
-				let postdoc = "{\"version\":\"0.3.2\",\"atoms\":[],\"cards\":[[\"image\",{\"caption\":\"Design proof\",\"src\":\"https://thoughts.jacobsokora.me/content/images/2020/05/DESIGN-PROOF-01.png\"}],[\"embed\",{\"url\":\"https://twitter.com/maybemerritt/status/1258516985790394368?s=20\",\"html\":\"<blockquote class=\\\"twitter-tweet\\\"><p lang=\\\"en\\\" dir=\\\"ltr\\\">not that literally anyone cares but i had a mindset-changing epiphany when i went camping last weekend and i’ve just felt...really good lately. like about me and who i am and what it means to be me. i also want to move to the mountains and own a farm now</p>&mdash; big dumb idiot (@maybemerritt) <a href=\\\"https://twitter.com/maybemerritt/status/1258516985790394368?ref_src=twsrc%5Etfw\\\">May 7, 2020</a></blockquote>\\n<script async src=\\\"https://platform.twitter.com/widgets.js\\\" charset=\\\"utf-8\\\"><\/script>\\n\",\"type\":\"rich\"}]],\"markups\":[],\"sections\":[[1,\"p\",[[0,[],0,\"What started seeming like a slow, boring novel, surprised me with clever twists and a refreshing take on time travel that created a story I had trouble putting down. The beginning makes the book seem like a story of an\"]]],[10,0],[10,1],[1,\"p\",[]]]}"
-				bootstrapEditor(postdoc);
-				console.log("Default post loaded")
+			window.toggleMarkup = function(markup) {
+				editor.toggleMarkup(markup);
 			}
 
-			window.serialize = function serialize() {
-				return JSON.stringify(editor.serialize('0.3.2'));
+			window.toggleSection = function(section) {
+				editor.toggleSection(section);
 			}
 
-			bootstrapDefault();
+			window.insertCard = function(type, payload) {
+				editor.insertCard(type, JSON.parse(payload), true);
+			}
+
+			window.insertLink = function(href) {
+				editor.run(postEditor => {
+					const linkMarkup = postEditor.builder.createMarkup('a', { href: href });
+					postEditor.toggleMarkup(linkMarkup);
+				});
+			}
+
+			window.undo = function() {
+				editor.run(postEditor => {
+					editor._editHistory.stepBackward(postEditor);
+				});
+			}
 		</script>
 	</body>
 </html>
