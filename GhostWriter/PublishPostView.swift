@@ -45,6 +45,7 @@ struct PublishPostView: View {
 							ContentManager.instance.publish(self.post) { post, message in
 								if post != nil {
 									self.presentationMode.wrappedValue.dismiss()
+									AppStoreReviewManager.requestReviewIfAppropriate()
 								} else {
 									self.errorMessage = message
 								}
