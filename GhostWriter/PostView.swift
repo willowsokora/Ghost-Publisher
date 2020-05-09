@@ -103,6 +103,11 @@ struct PostView: View {
 		}
 		.onDisappear {
 			self.saveTimer?.invalidate()
+			if self.post.changed && self.post.status == .draft {
+				ContentManager.instance.publish(self.post) { _, _ in
+					self.post.changed = false
+				}
+			}
 			ContentManager.instance.loadPosts()
 		}
     }
