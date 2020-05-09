@@ -12,6 +12,7 @@ import WebKit
 struct MobiledocEditor: UIViewRepresentable {
 
 	@Binding var mobiledoc: String
+	@Binding var showImagePicker: Bool
 	@Binding var newCardPayload: [String: Any?]?
 
 	func makeUIView(context: Context) -> MobiledocEditorView {
@@ -33,8 +34,13 @@ struct MobiledocEditor: UIViewRepresentable {
 			UIBarButtonItem(image: UIImage(systemName: "italic"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.toggleItalic)),
 			headingOneItem,
 			headingTwoItem,
-			UIBarButtonItem(image: UIImage(systemName: "quote.bubble"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.toggleQuote)),
+			UIBarButtonItem(image: UIImage(systemName: "quote.bubble"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.toggleQuote))
+		]
+
+		let insertItems = [
 			UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.insertLink)),
+//			UIBarButtonItem(image: UIImage(systemName: "chevron.left.slash.chevron.right"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.insertEmbed)),
+			UIBarButtonItem(image: UIImage(systemName: "camera.fill"), style: .plain, target: context.coordinator, action: #selector(context.coordinator.presentImagePicker))
 		]
 
 		if UIDevice.current.userInterfaceIdiom == .phone {
@@ -45,6 +51,7 @@ struct MobiledocEditor: UIViewRepresentable {
 				UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 			]
 			toolbarItems.append(contentsOf: markupItems)
+			toolbarItems.append(contentsOf: insertItems)
 			toolbarItems.append(contentsOf: [
 				UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
 				UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.resign))
@@ -55,7 +62,8 @@ struct MobiledocEditor: UIViewRepresentable {
 			mobiledocEditorView.webView.accessoryView = toolbar
 		} else {
 			mobiledocEditorView.webView.inputAssistantItem.trailingBarButtonGroups = [
-				UIBarButtonItemGroup(barButtonItems: markupItems, representativeItem: UIBarButtonItem(image: UIImage(systemName: "textformat"), style: .plain, target: nil, action: nil))
+				UIBarButtonItemGroup(barButtonItems: markupItems, representativeItem: UIBarButtonItem(image: UIImage(systemName: "textformat"), style: .plain, target: nil, action: nil)),
+				UIBarButtonItemGroup(barButtonItems: insertItems, representativeItem: UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: nil, action: nil))
 			]
 			mobiledocEditorView.webView.inputAssistantItem.leadingBarButtonGroups = [
 				UIBarButtonItemGroup(barButtonItems: [
@@ -78,15 +86,17 @@ struct MobiledocEditor: UIViewRepresentable {
 	}
 
 	func makeCoordinator() -> Coordinator {
-		return Coordinator(mobiledoc: $mobiledoc)
+		return Coordinator(mobiledoc: $mobiledoc, showImagePicker: $showImagePicker)
 	}
 
 	class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
 
 		@Binding var mobiledoc: String
+		@Binding var showImagePicker: Bool
 
-		init(mobiledoc: Binding<String>) {
+		init(mobiledoc: Binding<String>, showImagePicker: Binding<Bool>) {
 			_mobiledoc = mobiledoc
+			_showImagePicker = showImagePicker
 		}
 
 		func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -113,6 +123,10 @@ struct MobiledocEditor: UIViewRepresentable {
 			} else {
 				print("\(message.name): \(message.body)")
 			}
+		}
+
+		@objc func presentImagePicker() {
+			showImagePicker = true
 		}
 	}
 }
@@ -191,12 +205,26 @@ class MobiledocWebView: WKWebView {
 			}
 			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 			alert.addAction(UIAlertAction(title: "Insert", style: .default) { _ in
-				if let textField = alert.textFields?.first, let link = textField.text {
+				if let textField = alert.textFields?.first, let link = textField.text, !link.isEmpty {
 					self.evaluateJavaScript("insertLink('\(link)')")
 				}
 			})
 			self.nearestViewController?.present(alert, animated: true)
 		}
+	}
+
+	@objc func insertEmbed() {
+		let alert = UIAlertController(title: "Embed link", message: nil, preferredStyle: .alert)
+		alert.addTextField { field in
+			field.placeholder = "Link to embed"
+		}
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+		alert.addAction(UIAlertAction(title: "Embed", style: .default) { _ in
+			if let textField = alert.textFields?.first, let link = textField.text, !link.isEmpty {
+				self.evaluateJavaScript("embed('\(link)')")
+			}
+		})
+		self.nearestViewController?.present(alert, animated: true)
 	}
 
 	@objc func resign() {

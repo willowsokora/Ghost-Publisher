@@ -49,25 +49,20 @@ struct PostView: View {
 				}
 			).font(.title)
 			Divider()
-			MobiledocEditor(mobiledoc: $post.mobiledoc, newCardPayload: $newCardPayload)
+			MobiledocEditor(mobiledoc: $post.mobiledoc, showImagePicker: $showImagePicker, newCardPayload: $newCardPayload)
+			.imagePicker(isPresented: $showImagePicker) { imageInfo in
+				var payload = [
+					"type": "image",
+					"src": imageInfo.imageURL,
+				]
+				if let attribution = imageInfo.attribution {
+					payload["caption"] = attribution.htmlAttribution
+				}
+				self.newCardPayload = payload
+			}
 		}
 		.navigationBarItems(
 			trailing: HStack() {
-				Button(action: {
-					self.showImagePicker = true
-				}, label: {
-					Image(systemName: .cameraFill).imageScale(.large)
-				})
-				.imagePicker(isPresented: $showImagePicker) { imageInfo in
-					var payload = [
-						"type": "image",
-						"src": imageInfo.imageURL,
-					]
-					if let attribution = imageInfo.attribution {
-						payload["caption"] = attribution.htmlAttribution
-					}
-					self.newCardPayload = payload
-				}
 				Button(action: {
 					self.showPublishSheet = true
 				}, label: {

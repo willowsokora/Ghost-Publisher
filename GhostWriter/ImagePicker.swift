@@ -56,7 +56,7 @@ fileprivate struct ImagePicker: ViewModifier {
 					self.pickerType = .unsplash
 				},
 				ActionOverButton(title: nil, type: .cancel, action: nil)
-			], ipadAndMacConfiguration: IpadAndMacConfiguration(anchor: nil, arrowEdge: nil))
+			], ipadAndMacConfiguration: IpadAndMacConfiguration(anchor: .bottomTrailing, arrowEdge: .bottom))
 			.sheet(item: $pickerType) { pickerType in
 				SwitchOver(self.pickerType)
 					.case(.camera) {
