@@ -11,29 +11,46 @@
 		<div id="editor"></div>
 		<script type="text/javascript" src="./mobiledoc.js"></script>
 		<script type="text/javascript">
+			function decycle(obj, stack = []) {
+				if (!obj || typeof obj !== 'object')
+					return obj;
+				
+				if (stack.includes(obj))
+					return null;
 
-			function log(emoji, type, args) {
-			  window.webkit.messageHandlers.logging.postMessage(
-				`${emoji} JS ${type}: ${Object.values(args)
-				  .map(v => typeof(v) === "undefined" ? "undefined" : typeof(v) === "object" ? JSON.stringify(v) : v.toString())
-				  .map(v => v.substring(0, 3000)) // Limit msg to 3000 chars
-				  .join(", ")}`
-			  )
+				let s = stack.concat([obj]);
+
+				return Array.isArray(obj)
+					? obj.map(x => decycle(x, s))
+					: Object.fromEntries(
+						Object.entries(obj)
+							.map(([k, v]) => [k, decycle(v, s)]));
 			}
 
-			let originalLog = window.console.log
-			let originalWarn = window.console.warn
-			let originalError = window.console.error
-			let originalDebug = window.console.debug
+			if (window.webkit) {
+				function log(emoji, type, args) {
+				window.webkit.messageHandlers.logging.postMessage(
+					`${emoji} JS ${type}: ${Object.values(args)
+					.map(v => typeof(v) === "undefined" ? "undefined" : typeof(v) === "object" ? JSON.stringify(decycle(v)) : v.toString())
+					.map(v => v.substring(0, 3000)) // Limit msg to 3000 chars
+					.join(", ")}`
+				)
+				}
 
-			window.console.log = function() { log("📗", "log", arguments); originalLog.apply(null, arguments) }
-			window.console.warn = function() { log("📙", "warning", arguments); originalWarn.apply(null, arguments) }
-			window.console.error = function() { log("📕", "error", arguments); originalError.apply(null, arguments) }
-			window.console.debug = function() { log("📘", "debug", arguments); originalDebug.apply(null, arguments) }
+				let originalLog = window.console.log
+				let originalWarn = window.console.warn
+				let originalError = window.console.error
+				let originalDebug = window.console.debug
 
-			window.addEventListener("error", function(e) {
-			   log("💥", "Uncaught", [`${e.message} at ${e.filename}:${e.lineno}:${e.colno}`])
-			})
+				window.console.log = function() { log("📗", "log", arguments); originalLog.apply(null, arguments) }
+				window.console.warn = function() { log("📙", "warning", arguments); originalWarn.apply(null, arguments) }
+				window.console.error = function() { log("📕", "error", arguments); originalError.apply(null, arguments) }
+				window.console.debug = function() { log("📘", "debug", arguments); originalDebug.apply(null, arguments) }
+
+				window.addEventListener("error", function(e) {
+					log("💥", "Uncaught", [`${e.message} at ${e.filename}:${e.lineno}:${e.colno}`])
+				})
+			}
 
 			var editor = new Editor();
 			
@@ -59,7 +76,38 @@
 
 					if (payload.caption) {
 						let figcaption = document.createElement('figcaption');
-						figcaption.innerText = payload.caption;
+						figcaption.innerHTML = payload.caption;
+						figure.appendChild(figcaption);
+					}
+
+					return figure;
+				},
+
+				edit({payload}) {
+					if (!payload.src) {
+						return document.createTextNode('');
+					}
+
+					let figure = document.createElement('figure');
+					let img = document.createElement('img');
+					img.setAttribute('src', payload.src);
+					if (payload.alt) {
+						img.setAttribute('alt', payload.alt);
+					}
+					if (payload.title) {
+						img.setAttribute('title', payload.title);
+					}
+					figure.appendChild(img);
+
+					if (payload.caption) {
+						let figcaption = document.createElement('figcaption');
+						let captionField = document.createElement('input');
+						captionField.value = payload.caption
+						captionField.placeholder = 'Caption';
+						captionField.onchange = (event) => {
+							payload.caption = captionField.value;
+						}
+						figcaption.appendChild(captionField);
 						figure.appendChild(figcaption);
 					}
 
@@ -152,7 +200,6 @@
 
 			window.bootstrapEditor = function(doc) {
 				editor = new Editor({
-					placeholder: 'Write your post',
 					autofocus: true,
 					//Decode from base64 and convert to json object
 					mobiledoc: JSON.parse(atob(doc)),
@@ -166,8 +213,28 @@
 				});
 				editor.postDidChange(() => {
 					//Send the serialized post content back when it changes
-					window.webkit.messageHandlers.postDidChange.postMessage(JSON.stringify(editor.serialize('0.3.2')));
+					window.webkit.messageHandlers.postDidChange.postMessage(JSON.stringify(editor.serialize('0.3.1')));
 				});
+				
+				editor.render(document.getElementById('editor'));
+			}
+
+			window.bootstrapEmpty = function() {
+				editor = new Editor({
+					autofocus: true,
+					//Decode from base64 and convert to json object
+					cards: [image, embed, hr],
+					unknownCardHandler: ({env}) => {
+						return document.createTextNode(`Displaying ${env.name}s has not been implemented (don't worry, it's still there behind the scenes)`);
+					},
+					unknownAtomHandler: ({env}) => {
+						return document.createTextNode(`Displaying ${env.name}s has not been implemented (don't worry, it's still there behind the scenes)`);
+					}
+				});
+				editor.cursorDidChange(() => {
+					console.log('Range: ' + editor.range)
+				});
+
 				editor.render(document.getElementById('editor'));
 			}
 
@@ -180,7 +247,7 @@
 			}
 
 			//updateUIView was being called twice for state changes, so make sure the same image isn't inserted twice
-			var lastImage;
+			var lastImage = '';
 			window.insertCard = function(type, payload) {
 				let cardPayload = JSON.parse(atob(payload));
 				if (cardPayload.src == lastImage) {
@@ -188,13 +255,20 @@
 				} else {
 					lastImage = cardPayload.src;
 				}
-				editor.insertCard(type, cardPayload);
+				editor.insertCard(type, cardPayload, true);
+				editor.insertText('');
+			}
+
+			var selectedRange;
+
+			window.prepareForLink = function() {
+				selectedRange = editor.range;
 			}
 
 			window.insertLink = function(href) {
 				editor.run(postEditor => {
 					const linkMarkup = postEditor.builder.createMarkup('a', { href: href });
-					postEditor.toggleMarkup(linkMarkup);
+					postEditor.addMarkupToRange(selectedRange, linkMarkup);
 				});
 			}
 

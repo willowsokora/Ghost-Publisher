@@ -156,3 +156,14 @@
     text-decoration: underline;
   }
   
+  figcaption {
+    font-size: 0.75rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  input {
+    font-size: 0.75rem;
+    text-align: center;
+    width: 100%;
+  }

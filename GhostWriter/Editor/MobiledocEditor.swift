@@ -76,11 +76,22 @@ struct MobiledocEditor: UIViewRepresentable {
 			webView.evaluateJavaScript("bootstrapEditor('\(base64String)')")
 		}
 
+		func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+			if navigationAction.navigationType == .linkActivated, let url = navigationAction.request.url, UIApplication.shared.canOpenURL(url) {
+				UIApplication.shared.open(url)
+				decisionHandler(.cancel)
+				return
+			}
+			decisionHandler(.allow)
+		}
+
 		func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
 			if message.name == "postDidChange", let mobiledoc = message.body as? String {
 				self.mobiledoc = mobiledoc
 			} else if message.name == "logging" {
 				print(message.body)
+			} else {
+				print("\(message.name): \(message.body)")
 			}
 		}
 	}
@@ -93,6 +104,8 @@ class MobiledocEditorView: UIView {
 	}
 
 	private(set) var webView: MobiledocWebView
+
+	var selectedRange = (x: 0, y: 0)
 
 	public override init(frame: CGRect) {
 		webView = MobiledocWebView()
@@ -151,17 +164,19 @@ class MobiledocWebView: WKWebView {
 	}
 
 	@objc func insertLink() {
-		let alert = UIAlertController(title: "Insert link", message: nil, preferredStyle: .alert)
-		alert.addTextField { field in
-			field.placeholder = "Insert link"
-		}
-		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-		alert.addAction(UIAlertAction(title: "Insert", style: .default) { _ in
-			if let textField = alert.textFields?.first, let link = textField.text {
-				self.evaluateJavaScript("insertLink('\(link)')")
+		evaluateJavaScript("prepareForLink()") { _, _ in
+			let alert = UIAlertController(title: "Insert link", message: nil, preferredStyle: .alert)
+			alert.addTextField { field in
+				field.placeholder = "Insert link"
 			}
-		})
-		nearestViewController?.present(alert, animated: true)
+			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+			alert.addAction(UIAlertAction(title: "Insert", style: .default) { _ in
+				if let textField = alert.textFields?.first, let link = textField.text {
+					self.evaluateJavaScript("insertLink('\(link)')")
+				}
+			})
+			self.nearestViewController?.present(alert, animated: true)
+		}
 	}
 
 	@objc func resign() {

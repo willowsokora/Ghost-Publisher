@@ -12177,5 +12177,6 @@ class Editor {
 var version = '##VERSION##';
 
 // export { Editor, MobiledocError as Error, ImageCard, MOBILEDOC_VERSION$4 as MOBILEDOC_VERSION, Position$1 as Position, Range, ui as UI, version as VERSION };
-//# sourceMappingURL=mobiledoc.js.map
+
 window.Editor = Editor;
+window.Range = Range;
