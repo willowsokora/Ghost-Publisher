@@ -133,8 +133,8 @@
 					const figure = document.createElement('figure');
 					// figure.innerHTML = payload.html.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
 					let link = document.createElement('a');
-					a.href = payload.url;
-					a.innerText = payload.url;
+					link.href = payload.url;
+					link.innerText = payload.url;
 					figure.appendChild(link);
 
 					if (payload.caption) {
@@ -150,8 +150,8 @@
 					const figure = document.createElement('figure');
 					// figure.innerHTML = payload.html.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
 					let link = document.createElement('a');
-					a.href = payload.url;
-					a.innerText = payload.url;
+					link.href = payload.url;
+					link.innerText = payload.url;
 					figure.appendChild(link);
 
 					let figcaption = document.createElement('figcaption');
