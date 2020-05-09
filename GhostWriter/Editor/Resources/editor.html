@@ -150,7 +150,7 @@
 
 					let figcaption = document.createElement('figcaption');
 					let captionField = document.createElement('input');
-					captionField.value = payload.caption
+					captionField.value = payload.caption || '';
 					captionField.placeholder = 'Caption';
 					captionField.onchange = (event) => {
 						payload.caption = captionField.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
@@ -267,6 +267,10 @@
 						payload.html = textarea.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
 						env.save(payload, false);
 					}
+					// textarea.style.height = '1px';
+					// setTimeout(() => {
+					// 	textarea.style.height = textarea.scrollHeight + 'px';
+					// }, 1);
 					textarea.value = payload.html;
 					return textarea;
 				}

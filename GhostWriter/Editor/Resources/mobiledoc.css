@@ -102,8 +102,7 @@
   
   .__mobiledoc-card {
     display: inline-block;
-    width: calc(100%);
-    margin: 0;
+    width: 100%;
   }
   
   /**
@@ -173,21 +172,23 @@
 
   input {
     text-align: center;
-    width: 90%;
-    margin: 0;
+    width: 95%;
     border: 1px solid #0b8bff;
-    border-radius: 1;
+    border-radius: 0;
   }
   
   textarea {
-    width: 90%;
-    height: auto;
-    margin: 0;
+    width: 95%;
+    height: 30vw;
     font-size: 1em;
     border: 1px solid #0b8bff;
-    border-radius: 1;
+    border-radius: 0;
   }
 
   .code-editor {
     font-family: monospace!important;
+  }
+
+  .scroll::-webkit-scrollbar {
+    display: none;
   }
