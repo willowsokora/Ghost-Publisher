@@ -12,6 +12,9 @@
 		162C5CE42453F1820010002D /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 162C5CE32453F1820010002D /* Credentials.plist */; };
 		163456E824525FF3002430B9 /* Unsplash.plist in Resources */ = {isa = PBXBuildFile; fileRef = 163456E724525FF3002430B9 /* Unsplash.plist */; };
 		1662BB502450084200293699 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1662BB4F2450084200293699 /* SceneDelegate.swift */; };
+		1689412C24668749007CE252 /* showdown.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 1689412A24668749007CE252 /* showdown.min.js */; };
+		1689412F24669552007CE252 /* prism.css in Resources */ = {isa = PBXBuildFile; fileRef = 1689412D24669552007CE252 /* prism.css */; };
+		1689413024669552007CE252 /* prism.js in Resources */ = {isa = PBXBuildFile; fileRef = 1689412E24669552007CE252 /* prism.js */; };
 		16A09687244FC61600E96B73 /* RefreshableList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A09686244FC61600E96B73 /* RefreshableList.swift */; };
 		16A0968C244FD10800E96B73 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 16A0968B244FD10800E96B73 /* Introspect */; };
 		16AF6ED12464F0CF00394F52 /* mobiledoc.js in Resources */ = {isa = PBXBuildFile; fileRef = 16AF6ECD2464F0CF00394F52 /* mobiledoc.js */; };
@@ -89,6 +92,9 @@
 		162C5CE32453F1820010002D /* Credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Credentials.plist; sourceTree = "<group>"; };
 		163456E724525FF3002430B9 /* Unsplash.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Unsplash.plist; sourceTree = "<group>"; };
 		1662BB4F2450084200293699 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		1689412A24668749007CE252 /* showdown.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = showdown.min.js; sourceTree = "<group>"; };
+		1689412D24669552007CE252 /* prism.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = prism.css; sourceTree = "<group>"; };
+		1689412E24669552007CE252 /* prism.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = prism.js; sourceTree = "<group>"; };
 		16A09686244FC61600E96B73 /* RefreshableList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshableList.swift; sourceTree = "<group>"; };
 		16AF6ECD2464F0CF00394F52 /* mobiledoc.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mobiledoc.js; sourceTree = "<group>"; };
 		16AF6ECE2464F0CF00394F52 /* mobiledoc.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = mobiledoc.css; sourceTree = "<group>"; };
@@ -178,6 +184,9 @@
 		16AF6ED62464F1CC00394F52 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1689412D24669552007CE252 /* prism.css */,
+				1689412E24669552007CE252 /* prism.js */,
+				1689412A24668749007CE252 /* showdown.min.js */,
 				16AF6ECF2464F0CF00394F52 /* editor.html */,
 				16AF6ECE2464F0CF00394F52 /* mobiledoc.css */,
 				16AF6ECD2464F0CF00394F52 /* mobiledoc.js */,
@@ -388,7 +397,10 @@
 				16AF6ED32464F0CF00394F52 /* editor.html in Resources */,
 				16D8627F244CF53B0022D6BB /* Preview Assets.xcassets in Resources */,
 				16AF6ED22464F0CF00394F52 /* mobiledoc.css in Resources */,
+				1689413024669552007CE252 /* prism.js in Resources */,
 				16AF6ED12464F0CF00394F52 /* mobiledoc.js in Resources */,
+				1689412F24669552007CE252 /* prism.css in Resources */,
+				1689412C24668749007CE252 /* showdown.min.js in Resources */,
 				16D8627C244CF53B0022D6BB /* Assets.xcassets in Resources */,
 				163456E824525FF3002430B9 /* Unsplash.plist in Resources */,
 			);

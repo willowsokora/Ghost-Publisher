@@ -6,11 +6,17 @@
 		<meta name="supported-color-schemes" content="light dark">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" type="text/css" href="mobiledoc.css">
+		<link rel="stylesheet" type="text/css" href="prism.css">
 	</head>
 	<body>
 		<div id="editor"></div>
 		<script type="text/javascript" src="./mobiledoc.js"></script>
+		<script type="text/javascript" src="./showdown.min.js"></script>
+		<script type="text/javascript" src="./prism.js"></script>
 		<script type="text/javascript">
+
+			var markdownConverter = new showdown.Converter();
+
 			function decycle(obj, stack = []) {
 				if (!obj || typeof obj !== 'object')
 					return obj;
@@ -53,6 +59,8 @@
 			}
 
 			var editor = new Editor();
+
+			var selectedCard;
 			
 			const image = {
 				name: 'image',
@@ -83,7 +91,7 @@
 					return figure;
 				},
 
-				edit({payload}) {
+				edit({env, options, payload}) {
 					if (!payload.src) {
 						return document.createTextNode('');
 					}
@@ -99,17 +107,16 @@
 					}
 					figure.appendChild(img);
 
-					if (payload.caption) {
-						let figcaption = document.createElement('figcaption');
-						let captionField = document.createElement('input');
-						captionField.value = payload.caption
-						captionField.placeholder = 'Caption';
-						captionField.onchange = (event) => {
-							payload.caption = captionField.value;
-						}
-						figcaption.appendChild(captionField);
-						figure.appendChild(figcaption);
+					let figcaption = document.createElement('figcaption');
+					let captionField = document.createElement('input');
+					captionField.value = payload.caption
+					captionField.placeholder = 'Caption';
+					captionField.onchange = (event) => {
+						payload.caption = captionField.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						env.save(payload, false);
 					}
+					figcaption.appendChild(captionField);
+					figure.appendChild(figcaption);
 
 					return figure;
 				}
@@ -124,8 +131,8 @@
 						return document.createTextNode('');
 					}
 					const figure = document.createElement('figure');
-					
-					figure.innerHTML = payload.html;
+					// figure.innerHTML = payload.html.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+					figure.appendChild(document.createTextNode(`Embed: ${payload.url}`));
 
 					if (payload.caption) {
 						let figcaption = document.createElement('figcaption');
@@ -133,6 +140,25 @@
 						figure.appendChild(figcaption);
 					}
 					
+					return figure;
+				},
+
+				edit({env, options, payload}) {
+					const figure = document.createElement('figure');
+					// figure.innerHTML = payload.html.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+					figure.appendChild(document.createTextNode(`Embed: ${payload.url}`));
+
+					let figcaption = document.createElement('figcaption');
+					let captionField = document.createElement('input');
+					captionField.value = payload.caption
+					captionField.placeholder = 'Caption';
+					captionField.onchange = (event) => {
+						payload.caption = captionField.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						env.save(payload, false);
+					}
+					figcaption.appendChild(captionField);
+					figure.appendChild(figcaption);
+
 					return figure;
 				}
 			}
@@ -146,95 +172,167 @@
 				}
 			}
 
-			// const code = {
-			// 	name: 'code',
-			// 	type: 'dom',
+			const code = {
+				name: 'code',
+				type: 'dom',
 
-			// 	render(payload) {
-			// 		if (!payload.code) {
-			// 			return document.createTextNode('');
-			// 		}
+				render({payload}) {
+					if (!payload.code) {
+						return document.createTextNode('');
+					}
 
-			// 		let pre = document.createElement('pre');
-			// 		let code = document.createElement('code');
+					let pre = document.createElement('pre');
+					let code = document.createElement('code');
 
-			// 		if (payload.language) {
-			// 			code.setAttribute('class', `language-${payload.language}`);
-			// 		}
+					if (payload.language) {
+						// code.setAttribute('class', `language-${payload.language}`);
+						code.classList.add(`language-${payload.language}`);
+					}
 
-			// 		code.appendChild(document.createTextNode(payload.code));
-			// 		pre.appendChild(code);
+					pre.appendChild(document.createTextNode(payload.code));
+					pre.appendChild(code);
 
-			// 		if (payload.caption) {
-			// 			let figure = document.createElement('figure');
-			// 			figure.appendChild(pre);
+					if (payload.caption) {
+						let figure = document.createElement('figure');
+						figure.appendChild(pre);
 
-			// 			let figcaption = document.createElement('figcaption');
-			// 			figcaption.innerText = payload.caption;
-			// 			figure.appendChild(figcaption);
+						let figcaption = document.createElement('figcaption');
+						figcaption.innerText = payload.caption;
+						figure.appendChild(figcaption);
 
-			// 			return figure;
-			// 		} else {
-			// 			return pre;
-			// 		}
-			// 	}
-			// }
+						return figure;
+					} else {
+						return pre;
+					}
+				},
 
-			// const html = {
-			// 	name: 'html',
-			// 	type: 'dom',
-			// 	config: {
-			// 		commentWrapper: true
-			// 	},
+				edit({env, options, payload}) {
+					let figure = document.createElement('div');
 
-			// 	render(payload) {
-			// 		if (!payload.html) {
-			// 			return document.createTextNode('');
-			// 		}
+					let languageField = document.createElement('input');
+					languageField.placeholder = 'Langauge';
+					languageField.value = payload.language;
+					languageField.onchange = (event) => {
+						payload.language = languageField.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						env.save(payload, false);
+					}
 
-			// 		let div = document.createElement('div');
-			// 		div.innerHTML = payload.html;
-			// 		return div;
-			// 	}
-			// }
+					let codeEditor = document.createElement('textarea');
+					codeEditor.classList.add('code-editor');
+					codeEditor.value = payload.code;
+					codeEditor.onchange = (event) => {
+						payload.code = codeEditor.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						env.save(payload, false);
+					}
+
+					let figCaption = document.createElement('figcaption');
+
+					let captionField = document.createElement('input');
+					captionField.placeholder = 'Caption';
+					captionField.value = payload.caption;
+					captionField.onchange = (event) => {
+						payload.caption = captionField.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						env.save(payload, false);
+					}
+
+					figCaption.appendChild(captionField);
+
+					figure.appendChild(languageField);
+					figure.appendChild(codeEditor);
+					figure.appendChild(captionField);
+					return figure;
+				}
+			}
+
+			const html = {
+				name: 'html',
+				type: 'dom',
+				config: {
+					commentWrapper: true
+				},
+
+				render({payload}) {
+					if (!payload.html) {
+						return document.createTextNode('');
+					}
+
+					let div = document.createElement('div');
+					div.innerHTML = payload.html;
+					return div;
+				},
+
+				edit({env, options, payload}) {
+					let textarea = document.createElement('textarea');
+					textarea.onchange = (event) => {
+						payload.html = textarea.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						env.save(payload, false);
+					}
+					textarea.value = payload.html;
+					return textarea;
+				}
+			}
+
+			const markdown = {
+				name: 'markdown',
+				type: 'dom',
+				config: {
+					commentWrapper: true
+				},
+
+				render({payload}) {
+					let html = markdownConverter.makeHtml(payload.markdown || '');
+					let figure = document.createElement('div');
+					figure.innerHTML = html;
+					return figure;
+				},
+
+				edit({env, options, payload}) {
+					let textarea = document.createElement('textarea');
+					textarea.onchange = (event) => {
+						payload.markdown = textarea.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						env.save(payload, false);
+					}
+					textarea.value = payload.markdown;
+					return textarea;
+				}
+			}
 
 			window.bootstrapEditor = function(doc) {
 				editor = new Editor({
 					autofocus: true,
 					//Decode from base64 and convert to json object
 					mobiledoc: JSON.parse(atob(doc)),
-					cards: [image, embed, hr],
+					cards: [image, embed, hr, markdown, html, code],
 					unknownCardHandler: ({env}) => {
-						return document.createTextNode(`Displaying ${env.name}s has not been implemented (don't worry, it's still there behind the scenes)`);
+						return document.createTextNode(`Displaying ${env.name} cards has not been implemented (don't worry, it's still there behind the scenes)`);
 					},
 					unknownAtomHandler: ({env}) => {
-						return document.createTextNode(`Displaying ${env.name}s has not been implemented (don't worry, it's still there behind the scenes)`);
+						return document.createTextNode(`Displaying ${env.name} atoms has not been implemented (don't worry, it's still there behind the scenes)`);
 					}
 				});
 				editor.postDidChange(() => {
 					//Send the serialized post content back when it changes
 					window.webkit.messageHandlers.postDidChange.postMessage(JSON.stringify(editor.serialize('0.3.1')));
 				});
-				
-				editor.render(document.getElementById('editor'));
-			}
 
-			window.bootstrapEmpty = function() {
-				editor = new Editor({
-					autofocus: true,
-					//Decode from base64 and convert to json object
-					cards: [image, embed, hr],
-					unknownCardHandler: ({env}) => {
-						return document.createTextNode(`Displaying ${env.name}s has not been implemented (don't worry, it's still there behind the scenes)`);
-					},
-					unknownAtomHandler: ({env}) => {
-						return document.createTextNode(`Displaying ${env.name}s has not been implemented (don't worry, it's still there behind the scenes)`);
-					}
-				});
 				editor.cursorDidChange(() => {
-					console.log('Range: ' + editor.range)
-				});
-
+					let {head, tail, direction, isCollapsed, head: {section}} = editor.range;
+					if (section && isCollapsed && section.type === 'card-section') {
+						if (selectedCard) {
+							editor.displayCard(selectedCard);
+						}
+						selectedCard = section;
+						//if editing fails (likely because the card does not have an edit mode) make sure the card displays
+						try {
+							editor.editCard(section);
+						} catch {
+							editor.displayCard(section);
+						}
+					} else if (selectedCard) {
+						editor.displayCard(selectedCard);
+					}
+				})
+				
 				editor.render(document.getElementById('editor'));
 			}
 

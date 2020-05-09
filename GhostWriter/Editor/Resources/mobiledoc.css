@@ -49,6 +49,13 @@
     font-weight: 800;
     letter-spacing: -0.02em;
   }
+
+  /* blockquote {
+    border-left: 4px solid #a0a0a0;
+    margin: 1em 0 1em -1.2em;
+    padding-left: 1.05em;
+    color: #a0a0a0;
+  } */
   
   .__mobiledoc-editor blockquote {
     border-left: 4px solid #0b8bff;
@@ -95,6 +102,8 @@
   
   .__mobiledoc-card {
     display: inline-block;
+    width: calc(100%);
+    margin: 0;
   }
   
   /**
@@ -157,13 +166,28 @@
   }
   
   figcaption {
-    font-size: 0.75rem;
+    font-size: 0.75em;
     text-align: center;
     width: 100%;
   }
 
   input {
-    font-size: 0.75rem;
     text-align: center;
-    width: 100%;
+    width: 90%;
+    margin: 0;
+    border: 1px solid #0b8bff;
+    border-radius: 1;
+  }
+  
+  textarea {
+    width: 90%;
+    height: auto;
+    margin: 0;
+    font-size: 1em;
+    border: 1px solid #0b8bff;
+    border-radius: 1;
+  }
+
+  .code-editor {
+    font-family: monospace!important;
   }
