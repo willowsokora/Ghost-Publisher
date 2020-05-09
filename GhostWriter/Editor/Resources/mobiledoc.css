@@ -50,13 +50,6 @@
     letter-spacing: -0.02em;
   }
 
-  blockquote {
-    border-left: 4px solid #a0a0a0;
-    margin: 1em 0 1em -1.2em;
-    padding-left: 1.05em;
-    color: #a0a0a0;
-  }
-  
   .__mobiledoc-editor blockquote {
     border-left: 4px solid #0b8bff;
     margin: 1em 0 1em -1.2em;
