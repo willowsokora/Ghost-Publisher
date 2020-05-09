@@ -20,16 +20,14 @@ struct MobiledocEditor: UIViewRepresentable {
 		mobiledocEditorView.webView.configuration.userContentController.add(context.coordinator, name: "postDidChange")
 		mobiledocEditorView.webView.configuration.userContentController.add(context.coordinator, name: "logging")
 
-		let toolbar = UIToolbar()
+
 
 		let headingOneItem = UIBarButtonItem(title: "H", style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.toggleHeadingOne))
 		headingOneItem.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 21, weight: .medium)], for: .normal)
 		let headingTwoItem = UIBarButtonItem(title: "H", style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.toggleHeadingTwo))
 		headingTwoItem.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 19, weight: .medium)], for: .normal)
 
-		toolbar.items = [
-			UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.left"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.undo)),
-			UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+		let markupItems = [
 			UIBarButtonItem(image: UIImage(systemName: "bold"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.toggleBold)),
 			UIBarButtonItem(image: UIImage(systemName: "underline"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.toggleUnderlined)),
 			UIBarButtonItem(image: UIImage(systemName: "italic"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.toggleItalic)),
@@ -37,13 +35,35 @@ struct MobiledocEditor: UIViewRepresentable {
 			headingTwoItem,
 			UIBarButtonItem(image: UIImage(systemName: "quote.bubble"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.toggleQuote)),
 			UIBarButtonItem(image: UIImage(systemName: "link"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.insertLink)),
-			UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-			UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.resign))
 		]
 
-		toolbar.sizeToFit()
+		if UIDevice.current.userInterfaceIdiom == .phone {
+			let toolbar = UIToolbar()
+			var toolbarItems: [UIBarButtonItem] = [
+				UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.left"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.undo)),
+				UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.right"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.redo)),
+				UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+			]
+			toolbarItems.append(contentsOf: markupItems)
+			toolbarItems.append(contentsOf: [
+				UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+				UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.resign))
+			])
+			toolbar.items = toolbarItems
+			toolbar.sizeToFit()
 
-		mobiledocEditorView.webView.accessoryView = toolbar
+			mobiledocEditorView.webView.accessoryView = toolbar
+		} else {
+			mobiledocEditorView.webView.inputAssistantItem.trailingBarButtonGroups = [
+				UIBarButtonItemGroup(barButtonItems: markupItems, representativeItem: UIBarButtonItem(image: UIImage(systemName: "textformat"), style: .plain, target: nil, action: nil))
+			]
+			mobiledocEditorView.webView.inputAssistantItem.leadingBarButtonGroups = [
+				UIBarButtonItemGroup(barButtonItems: [
+					UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.left"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.undo)),
+					UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.right"), style: .plain, target: mobiledocEditorView.webView, action: #selector(mobiledocEditorView.webView.redo))
+				], representativeItem: UIBarButtonItem(image: UIImage(systemName: "arrow.uturn.left"), style: .plain, target: nil, action: nil))
+			]
+		}
 
 		return mobiledocEditorView
 	}
@@ -185,5 +205,9 @@ class MobiledocWebView: WKWebView {
 
 	@objc func undo() {
 		evaluateJavaScript("undo()")
+	}
+
+	@objc func redo() {
+		evaluateJavaScript("redo()")
 	}
 }

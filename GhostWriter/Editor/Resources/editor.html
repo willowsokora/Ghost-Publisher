@@ -277,6 +277,12 @@
 					editor._editHistory.stepBackward(postEditor);
 				});
 			}
+
+			window.redo = function() {
+				editor.run(postEditor => {
+					editor._editHistory.stepForward(postEditor);
+				})
+			}
 		</script>
 	</body>
 </html>
