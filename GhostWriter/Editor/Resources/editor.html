@@ -132,7 +132,10 @@
 					}
 					const figure = document.createElement('figure');
 					// figure.innerHTML = payload.html.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
-					figure.appendChild(document.createTextNode(`Embed: ${payload.url}`));
+					let link = document.createElement('a');
+					a.href = payload.url;
+					a.innerText = payload.url;
+					figure.appendChild(link);
 
 					if (payload.caption) {
 						let figcaption = document.createElement('figcaption');
@@ -146,7 +149,10 @@
 				edit({env, options, payload}) {
 					const figure = document.createElement('figure');
 					// figure.innerHTML = payload.html.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
-					figure.appendChild(document.createTextNode(`Embed: ${payload.url}`));
+					let link = document.createElement('a');
+					a.href = payload.url;
+					a.innerText = payload.url;
+					figure.appendChild(link);
 
 					let figcaption = document.createElement('figcaption');
 					let captionField = document.createElement('input');
@@ -267,10 +273,6 @@
 						payload.html = textarea.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
 						env.save(payload, false);
 					}
-					// textarea.style.height = '1px';
-					// setTimeout(() => {
-					// 	textarea.style.height = textarea.scrollHeight + 'px';
-					// }, 1);
 					textarea.value = payload.html;
 					return textarea;
 				}
