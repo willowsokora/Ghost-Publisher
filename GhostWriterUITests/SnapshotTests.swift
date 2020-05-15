@@ -57,7 +57,7 @@ class SnapshotTests: XCTestCase {
 		let passwordField = app.secureTextFields["password"]
 		expectation(for: exists, evaluatedWith: usernameField, handler: nil)
 		waitForExpectations(timeout: 10, handler: nil)
-		snapshot("Sign in")
+		snapshot("Signin")
 		usernameField.tap()
 		usernameField.typeTextSlowly(username)
 		passwordField.tap()

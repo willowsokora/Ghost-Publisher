@@ -100,10 +100,11 @@ struct MobiledocEditor: UIViewRepresentable {
 		}
 
 		func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-			//Because mobiledoc is really complex AND contains html, we need to encode to base64 before passing it to our webview
-			guard let utf8Data = mobiledoc.data(using: .utf8) else { return }
-			let base64String = utf8Data.base64EncodedString()
-			webView.evaluateJavaScript("bootstrapEditor('\(base64String)')")
+			let safeDoc = mobiledoc
+							.replacingOccurrences(of: "\\n", with: "")
+							.replacingOccurrences(of: "\\", with: "\\\\\\")
+							.replacingOccurrences(of: "\\\\\\\"", with: "\\\"")
+			webView.evaluateJavaScript("bootstrapEditor(\(safeDoc))")
 		}
 
 		func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {

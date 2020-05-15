@@ -20,5 +20,6 @@ platform :ios do
   lane :screenshots do
     xcode_select("/Applications/Xcode 11.3.app")
     capture_screenshots(scheme: "GhostWriterUITests")
+    frameit(path: './fastlane/screenshots')
   end
 end

@@ -112,7 +112,7 @@
 					captionField.value = payload.caption
 					captionField.placeholder = 'Caption';
 					captionField.onchange = (event) => {
-						payload.caption = captionField.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						payload.caption = captionField.value
 						env.save(payload, false);
 					}
 					figcaption.appendChild(captionField);
@@ -131,11 +131,7 @@
 						return document.createTextNode('');
 					}
 					const figure = document.createElement('figure');
-					// figure.innerHTML = payload.html.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
-					let link = document.createElement('a');
-					link.href = payload.url;
-					link.innerText = payload.url;
-					figure.appendChild(link);
+					figure.innerHTML = payload.html;
 
 					if (payload.caption) {
 						let figcaption = document.createElement('figcaption');
@@ -148,18 +144,14 @@
 
 				edit({env, options, payload}) {
 					const figure = document.createElement('figure');
-					// figure.innerHTML = payload.html.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
-					let link = document.createElement('a');
-					link.href = payload.url;
-					link.innerText = payload.url;
-					figure.appendChild(link);
+					figure.innerHTML = payload.html;
 
 					let figcaption = document.createElement('figcaption');
 					let captionField = document.createElement('input');
 					captionField.value = payload.caption || '';
 					captionField.placeholder = 'Caption';
 					captionField.onchange = (event) => {
-						payload.caption = captionField.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						payload.caption = captionField.value
 						env.save(payload, false);
 					}
 					figcaption.appendChild(captionField);
@@ -219,7 +211,7 @@
 					languageField.placeholder = 'Langauge';
 					languageField.value = payload.language;
 					languageField.onchange = (event) => {
-						payload.language = languageField.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						payload.language = languageField.value
 						env.save(payload, false);
 					}
 
@@ -227,7 +219,7 @@
 					codeEditor.classList.add('code-editor');
 					codeEditor.value = payload.code;
 					codeEditor.onchange = (event) => {
-						payload.code = codeEditor.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						payload.code = codeEditor.value
 						env.save(payload, false);
 					}
 
@@ -237,7 +229,7 @@
 					captionField.placeholder = 'Caption';
 					captionField.value = payload.caption;
 					captionField.onchange = (event) => {
-						payload.caption = captionField.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						payload.caption = captionField.value
 						env.save(payload, false);
 					}
 
@@ -270,7 +262,7 @@
 				edit({env, options, payload}) {
 					let textarea = document.createElement('textarea');
 					textarea.onchange = (event) => {
-						payload.html = textarea.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						payload.html = textarea.value
 						env.save(payload, false);
 					}
 					textarea.value = payload.html;
@@ -295,7 +287,7 @@
 				edit({env, options, payload}) {
 					let textarea = document.createElement('textarea');
 					textarea.onchange = (event) => {
-						payload.markdown = textarea.value.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"');
+						payload.markdown = textarea.value
 						env.save(payload, false);
 					}
 					textarea.value = payload.markdown;
@@ -307,7 +299,7 @@
 				editor = new Editor({
 					autofocus: true,
 					//Decode from base64 and convert to json object
-					mobiledoc: JSON.parse(atob(doc)),
+					mobiledoc: doc,
 					cards: [image, embed, hr, markdown, html, code],
 					unknownCardHandler: ({env}) => {
 						return document.createTextNode(`Displaying ${env.name} cards has not been implemented (don't worry, it's still there behind the scenes)`);
