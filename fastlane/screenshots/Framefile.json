@@ -1,0 +1,35 @@
+{
+    "default": {
+        "title": {
+            "color": "#F5F5F5"
+        },
+        "background": "./background.jpg",
+        "padding": 50
+    },
+    "data": [
+        {
+            "filter": "Editor",
+            "title": {
+                "text": "Create beautiful posts"
+            }
+        },
+        {
+            "filter": "Posts",
+            "title": {
+                "text": "Browse your content"
+            }
+        },
+        {
+            "filter": "Options",
+            "title": {
+                "text": "Configure post options"
+            }
+        },
+        {
+            "filter": "Signin",
+            "title": {
+                "text": "Use with any Ghost blog"
+            }
+        }
+    ]
+}
